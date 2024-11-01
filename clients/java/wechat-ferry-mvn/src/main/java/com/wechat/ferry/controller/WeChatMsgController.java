@@ -39,5 +39,4 @@ public class WeChatMsgController {
         weChatMsgService.receiveMsg(jsonString);
         return TResponse.ok(ResponseCodeEnum.SUCCESS);
     }
-
 }

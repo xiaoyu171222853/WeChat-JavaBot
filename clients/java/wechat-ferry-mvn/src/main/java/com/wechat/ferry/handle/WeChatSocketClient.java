@@ -435,12 +435,11 @@ public class WeChatSocketClient {
      * @return 是否
      */
     public boolean isAtMeMsg(String wxMsgXml, String wxMsgContent) {
-        String format = String.format("<atuserlist><![CDATA[%s]]></atuserlist>", getSelfWxId());
+        JSONObject jsonObject = XmlJsonConvertUtil.xml2Json(wxMsgXml);
+        JSONObject msgSource = jsonObject.getJSONObject("msgsource");
+        String atUserList = msgSource.get("atuserlist").toString();
         boolean isAtAll = wxMsgContent.startsWith("@所有人") || wxMsgContent.startsWith("@all");
-        if (wxMsgXml.contains(format) && !isAtAll) {
-            return true;
-        }
-        return false;
+        return atUserList.contains(getSelfWxId()) && !isAtAll;
     }
 
     private void listenMsg(String url) {

@@ -2,6 +2,7 @@ package com.wechat.ferry.utils;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * HTTP请求类
@@ -28,9 +36,12 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("all")
 public class HttpClientUtil {
 
+    @Value("${ruojy.token}")
+    private static String token;
+
     /**
      * 带参数的get请求
-     * 
+     *
      * @param url
      * @param param
      * @return String
@@ -38,7 +49,6 @@ public class HttpClientUtil {
     public static String doGet(String url, Map<String, String> param) {
         // 创建Httpclient对象
         CloseableHttpClient httpclient = HttpClients.createDefault();
-
         String resultString = "";
         CloseableHttpResponse response = null;
         try {
@@ -74,8 +84,37 @@ public class HttpClientUtil {
     }
 
     /**
+     * 带头部的get请求
+     *
+     * @param url       请求路径
+     * @param parameter 请求参数
+     * @return 返回值
+     */
+    public static String get(String url, Map<String, Object> parameter, HttpHeaders httpHeaders) {
+        if (!parameter.isEmpty()) {
+            url = url + "?";
+            for (String key : parameter.keySet()) {
+                url = url + key + "=" + parameter.get(key) + "&";
+            }
+            url = url.substring(0, url.length() - 1);
+        }
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
+
+        // Create HttpEntity with headers
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+
+        // Make the GET request
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        // Get response body
+        String body = response.getBody();
+//        log.info("远程调用结果，body为：{}", body);
+        return body;
+    }
+
+    /**
      * 不带参数的get请求
-     * 
+     *
      * @param url
      * @return String
      */
@@ -85,7 +124,7 @@ public class HttpClientUtil {
 
     /**
      * 带参数的post请求
-     * 
+     *
      * @param url
      * @param param
      * @return String
@@ -125,7 +164,7 @@ public class HttpClientUtil {
 
     /**
      * 不带参数的post请求
-     * 
+     *
      * @param url
      * @return String
      */
@@ -135,7 +174,7 @@ public class HttpClientUtil {
 
     /**
      * 传送json类型的post请求
-     * 
+     *
      * @param url
      * @param json
      * @return String

@@ -193,8 +193,8 @@ public class WeChatDllServiceImpl implements WeChatDllService {
                         vo.setType(WxContactsTypeEnum.OFFICIAL_ACCOUNT.getCode());
                         vo.setTypeLabel(WxContactsTypeEnum.OFFICIAL_ACCOUNT.getName());
                     } else if ("wxid_2876568766325".equals(rpcContact.getWxid()) || "wxid_2965349653612".equals(rpcContact.getWxid())
-                        || "wxid_4302923029011".equals(rpcContact.getWxid()) || "mphelper".equals(rpcContact.getWxid())
-                        || "weixinguanhaozhushou".equals(rpcContact.getWxid())) {
+                            || "wxid_4302923029011".equals(rpcContact.getWxid()) || "mphelper".equals(rpcContact.getWxid())
+                            || "weixinguanhaozhushou".equals(rpcContact.getWxid())) {
                         // 应用宝 yingyongbao wxid_2876568766325
                         // i黑马 iheima wxid_2965349653612
                         // 丁香医生 DingXiangYiSheng wxid_4302923029011
@@ -276,7 +276,7 @@ public class WeChatDllServiceImpl implements WeChatDllService {
         List<Wcf.DbRow> wcfList = new ArrayList<>();
         if (!ObjectUtils.isEmpty(request.getGroupNo())) {
             wcfList =
-                wechatSocketClient.querySql("MicroMsg.db", "SELECT RoomData FROM ChatRoom WHERE ChatRoomName = '" + request.getGroupNo() + "';");
+                    wechatSocketClient.querySql("MicroMsg.db", "SELECT RoomData FROM ChatRoom WHERE ChatRoomName = '" + request.getGroupNo() + "';");
         }
         // 查询联系人
         List<Wcf.DbRow> dbList = wechatSocketClient.querySql("MicroMsg.db", "SELECT UserName, NickName, Type FROM Contact;");
@@ -393,8 +393,8 @@ public class WeChatDllServiceImpl implements WeChatDllService {
     @Override
     public WxPpWcfSendRichTextMsgResp sendRichTextMsg(WxPpWcfSendRichTextMsgReq request) {
         Wcf.RichText richTextMsg = Wcf.RichText.newBuilder().setName(request.getName()).setAccount(request.getAccount()).setTitle(request.getTitle())
-            .setDigest(request.getDigest()).setUrl(request.getJumpUrl()).setThumburl(request.getThumbnailUrl()).setReceiver(request.getRecipient())
-            .build();
+                .setDigest(request.getDigest()).setUrl(request.getJumpUrl()).setThumburl(request.getThumbnailUrl()).setReceiver(request.getRecipient())
+                .build();
         Wcf.Request wcfReq = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_RICH_TXT_VALUE).setRt(richTextMsg).build();
         Wcf.Response rsp = wechatSocketClient.sendCmd(wcfReq);
         return null;
@@ -406,6 +406,16 @@ public class WeChatDllServiceImpl implements WeChatDllService {
         Wcf.Request wcfReq = Wcf.Request.newBuilder().setFuncValue(Wcf.Functions.FUNC_SEND_PAT_MSG_VALUE).setPm(patMsg).build();
         Wcf.Response rsp = wechatSocketClient.sendCmd(wcfReq);
         return null;
+    }
+
+    @Override
+    public boolean isAtMeMsg(String wxMsgXml, String wxMsgContent) {
+        // 判断是否有艾特
+        if (wxMsgXml.contains("atuserlist")){
+            return wechatSocketClient.isAtMeMsg(wxMsgXml,wxMsgContent);
+        }else {
+            return false;
+        }
     }
 
     public Function<byte[], Object> getSqlType(int type) {

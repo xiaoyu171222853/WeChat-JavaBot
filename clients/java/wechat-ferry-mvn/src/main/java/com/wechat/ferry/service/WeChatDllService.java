@@ -37,7 +37,7 @@ public interface WeChatDllService {
      * 当前微信客户端是否登录微信号
      *
      * @return true-已登录 false-未登录
-     * 
+     *
      * @author chandler
      * @date 2024-10-01 21:20
      */
@@ -85,10 +85,10 @@ public interface WeChatDllService {
 
     /**
      * 获取可查询数据库
-     * 
+     *
      * @param request 请求入参
      * @return 数据库记录
-     * 
+     *
      * @author chandler
      * @date 2024-10-02 17:52
      */
@@ -204,5 +204,13 @@ public interface WeChatDllService {
      * @date 2024-10-06 15:54
      */
     WxPpWcfSendPatOnePatMsgResp patOnePat(WxPpWcfPatOnePatMsgReq request);
+
+    /**
+     * 判断是否为@我消息
+     * @param wxMsgXml
+     * @param wxMsgContent
+     * @return
+     */
+    boolean isAtMeMsg(String wxMsgXml, String wxMsgContent);
 
 }

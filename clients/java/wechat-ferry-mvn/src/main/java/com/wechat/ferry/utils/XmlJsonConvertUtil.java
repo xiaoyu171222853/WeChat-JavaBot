@@ -42,7 +42,7 @@ public class XmlJsonConvertUtil {
 
     /**
      * xml转json
-     * 
+     *
      * @param xmlStr
      * @return
      * @throws DocumentException
@@ -68,7 +68,7 @@ public class XmlJsonConvertUtil {
 
     /**
      * xml转json
-     * 
+     *
      * @param element
      * @param json
      */

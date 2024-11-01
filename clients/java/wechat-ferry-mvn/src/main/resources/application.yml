@@ -28,17 +28,28 @@ logging:
 wechat:
   ferry:
     # DLL文件位置
-    dll-path: E:\WeChatFerry\clients\java\wechat-ferry-mvn\dll\sdk.dll
+    dll-path: E:\微信bot\WeChatFerry\clients\java\wechat-ferry-mvn\dll\sdk.dll
     # socket端口
     socket-port: 10086
     # 需要开启消息处理的群
     open-msg-groups:
-      - 53257911728@chatroom
+      - 52155225442@chatroom
+      - 45411596543@chatroom
+      - 52975427058@chatroom
+      - 47530769444@chatroom
+      - 48139084450@chatroom
+      - 22671412275@chatroom
+      - 43709931030@chatroom
+      - 49010341065@chatroom
+      - 48066498127@chatroom
+      - 53298025926@chatroom
+      - 57611285004@chatroom
+      - 57770194819@chatroom
     # 接收消息转发开关
     receive-msg-fwd-switch: false
     # 接收消息转发URL
     receive-msg-fwd-urls:
-      - http://localhost:9001/msg
+      - https://api.ruojy.top/api/wx/verify
     # 发送消息转发标识 1-关闭 2-全转发 3-发送成功才转发
     send-msg-fwd-flag: '1'
     # 发送消息转发URL
@@ -48,4 +59,5 @@ wechat:
     third-party-ok-codes:
       # key:状态码字段 val:状态码值
       code: '200'
-
+ruojy:
+  token: xiaoyu

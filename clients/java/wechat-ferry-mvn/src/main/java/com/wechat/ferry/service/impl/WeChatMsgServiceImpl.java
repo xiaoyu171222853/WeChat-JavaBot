@@ -1,9 +1,15 @@
 package com.wechat.ferry.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.wechat.ferry.entity.vo.request.WxPpWcfSendTextMsgReq;
+import com.wechat.ferry.service.WeChatDllService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -29,6 +35,8 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
 
     @Resource
     private WeChatFerryProperties weChatFerryProperties;
+    @Resource
+    private WeChatDllService weChatDllService;
 
     @Override
     public void receiveMsg(String jsonString) {
@@ -40,10 +48,40 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
         if (!CollectionUtils.isEmpty(weChatFerryProperties.getOpenMsgGroups())) {
             // 指定处理的群聊
             if (weChatFerryProperties.getOpenMsgGroups().contains(dto.getRoomId())) {
-                // TODO 这里可以拓展自己需要的功能
+                // 判断是否有艾特我
+                if (weChatDllService.isAtMeMsg(dto.getXml(), dto.getContent())){
+                    log.info("[收到消息]-[收到艾特我]-打印：{}\n", dto);
+                    log.info("消息内容:{}", dto.getContent());
+                    new Thread(()->{
+                        WxPpWcfSendTextMsgReq textMsg = new WxPpWcfSendTextMsgReq();
+                        textMsg.setRecipient(dto.getRoomId());
+                        List<String> userList = new ArrayList<>();
+                        userList.add("@ "+dto.getSender());
+                        textMsg.setAtUsers(userList);
+                        textMsg.setIsAtAll(false);
+                        String[] content = dto.getContent().split(" ");
+                        if (content.length>1){
+                            Map<String, Object> params = new HashMap<>();
+                            params.put("questionId", dto.getSender());
+                            params.put("question", content[1]);
+                            params.put("type", "CHAT");
+                            HttpHeaders httpHeaders= new HttpHeaders();
+                            httpHeaders.set("token","xiaoyu");
+                            String result = HttpClientUtil.get("https://api.ruojy.top/api/qianfan/chatWithAppBuilder", params,httpHeaders);
+                            JSONObject jsonObject = JSON.parseObject(result);
+                            textMsg.setMsgText(jsonObject.get("data").toString());
+                        }else {
+                            textMsg.setMsgText("收到");
+                        }
+                        weChatDllService.sendTextMsg(textMsg);
+                    }).start();
+                }else {
+                    log.debug("[收到消息]-[指定群聊]-打印：{}", dto);
+                }
             }
+        }else {
+
         }
-        log.debug("[收到消息]-[消息内容]-打印：{}", dto);
     }
 
     private void receiveMsgForward(String jsonString) {
