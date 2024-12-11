@@ -1,6 +1,5 @@
 package com.wechat.ferry;
 
-import org.springframework.context.annotation.ComponentScan;
 import com.wechat.ruojy.handler.WebSocketClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
