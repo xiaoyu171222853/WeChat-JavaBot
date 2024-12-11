@@ -62,3 +62,5 @@ wechat:
 ruojy:
   token: MyToken
   wsUrl: ws://localhost:5710/api/ws
+  reConnectToServerTimeout: 30 # 尝试重连间隔时间
+  overTimeout: 10 # 超时断开重试时间
