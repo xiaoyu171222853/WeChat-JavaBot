@@ -1,4 +1,4 @@
-package com.wechat.ferry.handle;
+package com.wechat.ferry.handle.ruojy;
 
 import java.util.Map;
 

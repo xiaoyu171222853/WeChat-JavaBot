@@ -1,7 +1,7 @@
-package com.wechat.ferry.entity;
+package com.wechat.ferry.entity.ruojy;
 
 import com.alibaba.fastjson2.JSON;
-import com.wechat.ferry.enums.MessageTypeEnum;
+import com.wechat.ferry.enums.ruojy.MessageTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

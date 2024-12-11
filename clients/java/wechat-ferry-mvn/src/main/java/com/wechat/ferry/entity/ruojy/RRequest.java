@@ -1,4 +1,4 @@
-package com.wechat.ferry.entity;
+package com.wechat.ferry.entity.ruojy;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -60,4 +60,4 @@ wechat:
       # key:状态码字段 val:状态码值
       code: '200'
 ruojy:
-  token: xiaoyu
+  token: MyToken

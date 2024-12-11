@@ -1,10 +1,10 @@
-package com.wechat.ferry.handle;
+package com.wechat.ferry.handle.ruojy;
 
 import com.alibaba.fastjson2.JSON;
-import com.wechat.ferry.entity.Message;
-import com.wechat.ferry.entity.RRequest;
-import com.wechat.ferry.entity.RResponse;
-import com.wechat.ferry.enums.MessageTypeEnum;
+import com.wechat.ferry.entity.ruojy.Message;
+import com.wechat.ferry.entity.ruojy.RRequest;
+import com.wechat.ferry.entity.ruojy.RResponse;
+import com.wechat.ferry.enums.ruojy.MessageTypeEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;

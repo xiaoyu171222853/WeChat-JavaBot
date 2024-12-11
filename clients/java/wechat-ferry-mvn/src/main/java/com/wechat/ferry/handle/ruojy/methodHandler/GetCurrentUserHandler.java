@@ -1,7 +1,6 @@
-package com.wechat.ferry.handle.methodHandler;
+package com.wechat.ferry.handle.ruojy.methodHandler;
 
-import com.wechat.ferry.entity.vo.response.WxPpWcfLoginInfoResp;
-import com.wechat.ferry.handle.MethodHandler;
+import com.wechat.ferry.handle.ruojy.MethodHandler;
 import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.stereotype.Component;
 
