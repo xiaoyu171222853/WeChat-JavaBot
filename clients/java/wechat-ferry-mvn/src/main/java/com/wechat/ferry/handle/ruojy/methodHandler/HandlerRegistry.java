@@ -1,5 +1,6 @@
-package com.wechat.ferry.handle.ruojy;
+package com.wechat.ferry.handle.ruojy.methodHandler;
 
+import com.wechat.ferry.handle.ruojy.MethodHandler;
 import com.wechat.ferry.handle.ruojy.methodHandler.GetCurrentUserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

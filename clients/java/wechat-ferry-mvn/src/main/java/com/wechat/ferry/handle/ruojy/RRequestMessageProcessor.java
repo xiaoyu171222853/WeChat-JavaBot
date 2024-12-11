@@ -5,6 +5,7 @@ import com.wechat.ferry.entity.ruojy.Message;
 import com.wechat.ferry.entity.ruojy.RRequest;
 import com.wechat.ferry.entity.ruojy.RResponse;
 import com.wechat.ferry.enums.ruojy.MessageTypeEnum;
+import com.wechat.ferry.handle.ruojy.methodHandler.HandlerRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
