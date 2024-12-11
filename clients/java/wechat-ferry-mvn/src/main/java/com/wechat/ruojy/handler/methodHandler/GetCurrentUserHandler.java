@@ -1,6 +1,6 @@
-package com.wechat.ferry.handle.ruojy.methodHandler;
+package com.wechat.ruojy.handler.methodHandler;
 
-import com.wechat.ferry.handle.ruojy.MethodHandler;
+import com.wechat.ruojy.handler.MethodHandler;
 import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.stereotype.Component;
 

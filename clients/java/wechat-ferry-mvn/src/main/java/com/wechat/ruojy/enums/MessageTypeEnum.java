@@ -1,4 +1,4 @@
-package com.wechat.ferry.enums.ruojy;
+package com.wechat.ruojy.enums;
 
 import lombok.Getter;
 

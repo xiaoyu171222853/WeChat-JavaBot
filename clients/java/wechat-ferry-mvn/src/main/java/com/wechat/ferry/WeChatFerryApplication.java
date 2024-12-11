@@ -1,6 +1,7 @@
 package com.wechat.ferry;
 
-import com.wechat.ferry.handle.ruojy.WebSocketClientService;
+import org.springframework.context.annotation.ComponentScan;
+import com.wechat.ruojy.handler.WebSocketClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2024-09-21 12:19
  */
 @EnableScheduling
-@SpringBootApplication(scanBasePackages = "com.wechat.ferry")
+@SpringBootApplication(scanBasePackages = "com.wechat")
 public class WeChatFerryApplication implements CommandLineRunner {
     @Autowired
     private WebSocketClientService webSocketClientService;
