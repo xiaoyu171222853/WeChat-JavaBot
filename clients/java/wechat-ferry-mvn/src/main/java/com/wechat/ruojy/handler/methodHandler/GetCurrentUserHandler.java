@@ -1,6 +1,5 @@
 package com.wechat.ruojy.handler.methodHandler;
 
-import com.wechat.ruojy.handler.MethodHandler;
 import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.stereotype.Component;
 

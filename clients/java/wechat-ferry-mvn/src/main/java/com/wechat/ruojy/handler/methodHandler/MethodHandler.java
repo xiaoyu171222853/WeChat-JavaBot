@@ -1,4 +1,4 @@
-package com.wechat.ruojy.handler;
+package com.wechat.ruojy.handler.methodHandler;
 
 import java.util.Map;
 

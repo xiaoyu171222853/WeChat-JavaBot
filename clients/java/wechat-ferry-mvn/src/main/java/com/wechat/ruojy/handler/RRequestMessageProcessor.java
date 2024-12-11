@@ -5,13 +5,16 @@ import com.wechat.ruojy.entity.Message;
 import com.wechat.ruojy.entity.RRequest;
 import com.wechat.ruojy.entity.RResponse;
 import com.wechat.ruojy.enums.MessageTypeEnum;
+import com.wechat.ruojy.enums.RequestTypeEnum;
 import com.wechat.ruojy.handler.methodHandler.HandlerRegistry;
+import com.wechat.ruojy.handler.methodHandler.MethodHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,8 +40,12 @@ public class RRequestMessageProcessor {
         if (handler == null) {
             throw new IllegalArgumentException("No handler found for method: " + method);
         }
-
-        Map<String, Object> params = (Map<String, Object>) request.getParams();
+        Map<String, Object> params = new HashMap<>();
+        if (request.getType().equals(RequestTypeEnum.GET.name())){
+            // get请求不作参数处理
+        }else {
+            params=(Map<String, Object>) request.getParams();
+        }
         Object handle = handler.handle(params);
         // 返回回复
         sendResponse(session,message.getRequestId(),RResponse.success(handle));

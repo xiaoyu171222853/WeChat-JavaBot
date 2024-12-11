@@ -103,6 +103,6 @@ public class WebSocketClientService {
             }
         };
 
-        client.doHandshake(handler, "ws://"+wsUrl+"/"+myToken);  // 连接到服务端的WebSocket端点
+        client.doHandshake(handler, wsUrl+"/"+myToken);  // 连接到服务端的WebSocket端点
     }
 }
