@@ -56,9 +56,8 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                         WxPpWcfSendTextMsgReq textMsg = new WxPpWcfSendTextMsgReq();
                         textMsg.setRecipient(dto.getRoomId());
                         List<String> userList = new ArrayList<>();
-                        userList.add("@ "+dto.getSender());
+                        userList.add(dto.getSender());
                         textMsg.setAtUsers(userList);
-                        textMsg.setIsAtAll(false);
                         String[] content = dto.getContent().split(" ");
                         if (content.length>1){
                             Map<String, Object> params = new HashMap<>();
@@ -69,7 +68,11 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                             httpHeaders.set("token","xiaoyu");
                             String result = HttpClientUtil.get("https://api.ruojy.top/api/qianfan/chatWithAppBuilder", params,httpHeaders);
                             JSONObject jsonObject = JSON.parseObject(result);
-                            textMsg.setMsgText(jsonObject.get("data").toString());
+                            if (userList.isEmpty()){
+                                textMsg.setMsgText(jsonObject.get("data").toString());
+                            }else {
+
+                            }
                         }else {
                             textMsg.setMsgText("收到");
                         }

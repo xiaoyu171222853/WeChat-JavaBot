@@ -1,37 +1,23 @@
 package com.wechat.ferry.enums;
 
-import org.springframework.util.ObjectUtils;
+import lombok.Getter;
 
+@Getter
 public enum MessageTypeEnum {
-    TEXT("文本消息","TEXT"),
-    BINARY("二进制消息","BINARY"),
-    NOTIFICATION("通知消息","NOTIFICATION"),
-    HEARTBEAT("心跳检测消息","HEARTBEAT"),
-    ERROR("错误消息","ERROR");
+    NOTIFICATION("通知消息"),
+    REQUEST("请求消息"),
+    RESPONSE("回复消息"),
+    HEARTBEAT("心跳检测消息");
 
+    // 描述
     private final String description;
-    private final String value;
-    // 获取 value
-    public String getValue() {
-        return value;
-    }
+
+
     // 构造方法
-    MessageTypeEnum(String description,String value) {
+    MessageTypeEnum(String description) {
         this.description = description;
-        this.value = value;
     }
 
-    private static MessageTypeEnum getEnumByValue(String value) {
-        if (ObjectUtils.isEmpty(value)) {
-            return null;
-        }
-        for (MessageTypeEnum messageType : MessageTypeEnum.values()) {
-            if (messageType.value.equals(value)) {
-                return messageType;
-            }
-        }
-        return null;
-    }
 
     // 根据消息类型获取枚举
     public static MessageTypeEnum fromString(String type) {
