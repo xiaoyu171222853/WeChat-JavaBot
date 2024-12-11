@@ -61,3 +61,4 @@ wechat:
       code: '200'
 ruojy:
   token: MyToken
+  wsUrl: localhost:5710/api/ws

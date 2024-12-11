@@ -21,6 +21,9 @@ public class WebSocketClientService {
     @Value("${ruojy.token}")
     private String myToken;
 
+    @Value("${ruojy.wsUrl}")
+    private String wsUrl;
+
     @Resource
     private RRequestMessageProcessor RRequestMessageProcessor;
     public void startClient() {
@@ -100,6 +103,6 @@ public class WebSocketClientService {
             }
         };
 
-        client.doHandshake(handler, "ws://localhost:5710/api/ws/MyToken");  // 连接到服务端的WebSocket端点
+        client.doHandshake(handler, "ws://"+wsUrl+"/"+myToken);  // 连接到服务端的WebSocket端点
     }
 }
