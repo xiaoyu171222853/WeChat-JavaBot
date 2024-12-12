@@ -37,6 +37,7 @@ public class WebSocketClientService {
     private boolean isConnected = false;  // 连接状态标记
     private boolean isConnectionAttempting = false;  // 标记是否正在尝试连接
 
+    private static WebSocketHandler handler = null;
     // 以配置文件为主
     // 尝试重连间隔时间
     @Value("${ruojy.reConnectToServerTimeout}")
@@ -46,7 +47,7 @@ public class WebSocketClientService {
     private final Integer overTimeout = 20;
     public void startClient() {
         client = new StandardWebSocketClient();
-        WebSocketHandler handler = new WebSocketHandler() {
+        handler = new WebSocketHandler() {
 
             @Override
             public void afterConnectionEstablished(WebSocketSession session) {
@@ -130,41 +131,7 @@ public class WebSocketClientService {
         }, overTimeout, TimeUnit.SECONDS);  // 默认20秒超时任务
 
         // 连接到WebSocket服务器
-        client.doHandshake(new WebSocketHandler() {
-            @Override
-            public void afterConnectionEstablished(WebSocketSession session) {
-                System.out.println("Connected to server!");
-                currentSession = session;
-                isConnected = true;  // 设置连接成功标记
-                isConnectionAttempting = false;  // 停止连接尝试
-            }
-
-            @Override
-            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
-                // 处理消息逻辑
-            }
-
-            @Override
-            public void handleTransportError(WebSocketSession session, Throwable exception) {
-                System.err.println("Transport error: " + exception.getMessage());
-                isConnected = false;
-                isConnectionAttempting = false;
-                reconnect();
-            }
-
-            @Override
-            public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-                System.out.println("Connection closed with status: " + closeStatus);
-                isConnected = false;
-                isConnectionAttempting = false;
-                reconnect();
-            }
-
-            @Override
-            public boolean supportsPartialMessages() {
-                return false;
-            }
-        }, wsUrl + "/" + myToken);
+        client.doHandshake(handler, wsUrl + "/" + myToken);
     }
 
     /**
