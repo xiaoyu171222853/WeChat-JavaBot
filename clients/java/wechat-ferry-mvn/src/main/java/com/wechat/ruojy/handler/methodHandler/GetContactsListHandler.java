@@ -6,20 +6,19 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Map;
 
-// 获取当前登录用户信息
 @Component
-public class GetCurrentUserHandler implements MethodHandler {
+public class GetContactsListHandler implements MethodHandler{
+
     @Resource
-    private WeChatDllService websChatDllService;
+    private WeChatDllService weChatDllService;
 
     @Override
     public String getMethodName() {
-        return "getCurrentUser";
+        return "getContactsList";
     }
 
     @Override
     public Object handle(Map<String, Object> params) {
-        // 返回用户信息queryLoginWeChatInfo
-        return websChatDllService.queryLoginWeChatInfo();
+        return weChatDllService.queryContactsList();
     }
 }

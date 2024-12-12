@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,14 +23,13 @@ import java.util.Map;
  */
 @Component
 public class RRequestMessageProcessor {
-    private final HandlerRegistry handlerRegistry;
+
+    @Resource
+    private HandlerRegistry handlerRegistry;
 
     @Value("${ruojy.token}")
     private String TOKEN;
 
-    public RRequestMessageProcessor(HandlerRegistry handlerRegistry) {
-        this.handlerRegistry = handlerRegistry;
-    }
 
     public void processRequest(Message message,WebSocketSession session) throws IOException {
         // 获取处理器

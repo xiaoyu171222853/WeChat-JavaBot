@@ -3,16 +3,25 @@ package com.wechat.ruojy.handler.methodHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import javax.annotation.PostConstruct;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+
 @Component
 public class HandlerRegistry {
+
     private static final Map<String, MethodHandler> handlers = new HashMap<>();
-    // 通过构造器注入需要的 Handler
+
     @Autowired
-    public HandlerRegistry(GetCurrentUserHandler getCurrentUserHandler) {
-        // 注册具体的方法处理器
-        register("getCurrentUser", getCurrentUserHandler);
+    private List<MethodHandler> methodHandlers;  // 自动注入所有MethodHandler的实现
+
+    @PostConstruct
+    public void init() {
+        // 自动注册所有MethodHandler实例
+        for (MethodHandler handler : methodHandlers) {
+            register(handler.getMethodName(), handler);  // 假设MethodHandler有getMethodName()方法返回唯一标识符
+        }
     }
 
     public static void register(String method, MethodHandler handler) {
