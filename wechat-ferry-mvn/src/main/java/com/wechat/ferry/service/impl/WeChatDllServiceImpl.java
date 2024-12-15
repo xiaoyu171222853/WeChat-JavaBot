@@ -11,6 +11,9 @@ import java.util.function.Function;
 
 import javax.annotation.Resource;
 
+import com.wechat.ferry.entity.vo.request.*;
+import com.wechat.ferry.entity.vo.response.*;
+import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -28,9 +31,6 @@ import com.wechat.ferry.handle.WeChatSocketClient;
 import com.wechat.ferry.utils.HttpClientUtil;
 
 import lombok.extern.slf4j.Slf4j;
-import top.ruojy.wechatferry.WeChatDllService;
-import top.ruojy.wechatferry.entity.vo.request.*;
-import top.ruojy.wechatferry.entity.vo.response.*;
 
 /**
  * 业务实现层-对接原本DLL的接口
