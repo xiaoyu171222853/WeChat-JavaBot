@@ -1,29 +1,10 @@
 package com.wechat.ferry.service;
 
+import top.ruojy.chatbot.entity.vo.request.*;
+import top.ruojy.chatbot.entity.vo.response.*;
+
 import java.util.List;
 
-import com.wechat.ferry.entity.vo.request.WxPpWcfDatabaseSqlReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfDatabaseTableReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfGroupMemberReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfPatOnePatMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendEmojiMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendFileMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendImageMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendRichTextMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendTextMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendXmlMsgReq;
-import com.wechat.ferry.entity.vo.response.WxPpWcfContactsResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfDatabaseRowResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfGroupMemberResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfLoginInfoResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfMsgTypeResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendEmojiMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendFileMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendImageMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendPatOnePatMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendRichTextMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendTextMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendXmlMsgResp;
 
 /**
  * 业务接口-对接原本DLL的接口

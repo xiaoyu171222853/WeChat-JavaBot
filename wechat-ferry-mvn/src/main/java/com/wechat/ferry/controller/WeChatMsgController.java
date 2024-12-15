@@ -35,7 +35,7 @@ public class WeChatMsgController {
 
     @ApiOperation(value = "接收微信消息", notes = "receiveMsg")
     @PostMapping(value = "/receive")
-    public TResponse<Object> receiveMsg(@RequestBody String jsonString) {
+    public TResponse<Object> receiveMsg(@RequestBody String jsonString){
         weChatMsgService.receiveMsg(jsonString);
         return TResponse.ok(ResponseCodeEnum.SUCCESS);
     }

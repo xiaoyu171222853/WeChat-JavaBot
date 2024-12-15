@@ -1,14 +1,11 @@
 package com.wechat.ferry.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.wechat.ferry.plugin.PluginManager;
 import com.wechat.ferry.service.WeChatDllService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -16,11 +13,18 @@ import org.springframework.util.ObjectUtils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.wechat.ferry.config.WeChatFerryProperties;
-import com.wechat.ferry.entity.dto.WxPpMsgDTO;
 import com.wechat.ferry.service.WeChatMsgService;
 import com.wechat.ferry.utils.HttpClientUtil;
 
 import lombok.extern.slf4j.Slf4j;
+import top.ruojy.chatbot.entity.MessageRequest;
+import top.ruojy.chatbot.entity.MessageResponse;
+import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
+import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendEmojiMsgReq;
+import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendTextMsgReq;
+import top.ruojy.chatbot.entity.vo.response.WxPpWcfSendEmojiMsgResp;
+import top.ruojy.chatbot.entity.vo.response.WxPpWcfSendTextMsgResp;
+import top.ruojy.chatbot.enums.MessageTypeEnum;
 
 /**
  * 业务实现层-消息处理
@@ -37,6 +41,9 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
     @Resource
     private WeChatDllService weChatDllService;
 
+    @Resource
+    private PluginManager pluginManager;
+
     @Override
     public void receiveMsg(String jsonString) {
         // 转发接口处理
@@ -44,6 +51,7 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
         // 转为JSON对象
         WxPpMsgDTO dto = JSON.parseObject(jsonString, WxPpMsgDTO.class);
         log.info(dto.toString());
+
         // 有开启的群聊配置
         if (!CollectionUtils.isEmpty(weChatFerryProperties.getOpenMsgGroups())) {
             // 指定处理的群聊
@@ -52,14 +60,19 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                 if (weChatDllService.isAtMeMsg(dto.getXml(), dto.getContent())){
                     log.info("[收到消息]-[收到艾特我]-打印：{}\n", dto);
                     log.info("消息内容:{}", dto.getContent());
-
+                    pluginManager.handleGroupAtMeMessage(dto);
                 }else {
                     log.debug("[收到消息]-[指定群聊]-打印：{}", dto);
+                    // pluginManager.handleGroupMessage(dto);
                 }
             }
         }else {
+            // 个人号
+
+            // 公众订阅号
 
         }
+
     }
 
     private void receiveMsgForward(String jsonString) {

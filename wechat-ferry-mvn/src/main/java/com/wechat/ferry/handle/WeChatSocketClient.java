@@ -12,7 +12,6 @@ import org.springframework.util.ObjectUtils;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.sun.jna.Native;
-import com.wechat.ferry.entity.dto.WxPpMsgDTO;
 import com.wechat.ferry.entity.proto.Wcf;
 import com.wechat.ferry.entity.proto.Wcf.DbQuery;
 import com.wechat.ferry.entity.proto.Wcf.DbRow;
@@ -34,6 +33,7 @@ import com.wechat.ferry.utils.XmlJsonConvertUtil;
 import io.sisu.nng.Socket;
 import io.sisu.nng.pair.Pair1Socket;
 import lombok.extern.slf4j.Slf4j;
+import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
 
 /**
  * 处理层-微信客户端

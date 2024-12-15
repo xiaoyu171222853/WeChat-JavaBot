@@ -120,6 +120,12 @@
 <!--            <artifactId>mysql-connector-j</artifactId>-->
 <!--            <version>8.0.33</version>-->
 <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
 
         <!-- 引入本地lib -->
         <dependency>
@@ -130,6 +136,15 @@
             <scope>system</scope>
             <!-- jar包位置 -->
             <systemPath>${project.basedir}/src/main/resources/libs/nng-java-1.4.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>top.xiaoyu.bot</groupId>
+            <artifactId>chat-bot-plugin</artifactId>
+            <version>0.2.0</version>
+            <!-- system表示依赖不是由maven仓库，而是本地的jar包 -->
+            <scope>system</scope>
+            <!-- jar包位置 -->
+            <systemPath>${project.basedir}/src/main/resources/libs/chat-bot-plugin-0.2.0.jar</systemPath>
         </dependency>
     </dependencies>
 
