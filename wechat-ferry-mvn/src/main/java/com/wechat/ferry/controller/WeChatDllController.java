@@ -10,34 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wechat.ferry.entity.TResponse;
-import com.wechat.ferry.entity.vo.request.WxPpWcfDatabaseSqlReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfDatabaseTableReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfGroupMemberReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfPatOnePatMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendEmojiMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendFileMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendImageMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendRichTextMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendTextMsgReq;
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendXmlMsgReq;
-import com.wechat.ferry.entity.vo.response.WxPpWcfContactsResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfDatabaseRowResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfGroupMemberResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfLoginInfoResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfMsgTypeResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendEmojiMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendFileMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendImageMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendPatOnePatMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendRichTextMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendTextMsgResp;
-import com.wechat.ferry.entity.vo.response.WxPpWcfSendXmlMsgResp;
+
 import com.wechat.ferry.enums.ResponseCodeEnum;
-import com.wechat.ferry.service.WeChatDllService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import top.ruojy.wechatferry.WeChatDllService;
+import top.ruojy.wechatferry.entity.vo.request.*;
+import top.ruojy.wechatferry.entity.vo.response.*;
 
 /**
  * 控制层-微信DLL处理

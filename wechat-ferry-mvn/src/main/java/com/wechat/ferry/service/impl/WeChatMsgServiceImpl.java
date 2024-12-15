@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.wechat.ferry.entity.vo.request.WxPpWcfSendTextMsgReq;
-import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +20,8 @@ import com.wechat.ferry.service.WeChatMsgService;
 import com.wechat.ferry.utils.HttpClientUtil;
 
 import lombok.extern.slf4j.Slf4j;
+import top.ruojy.wechatferry.WeChatDllService;
+import top.ruojy.wechatferry.entity.vo.request.WxPpWcfSendTextMsgReq;
 
 /**
  * 业务实现层-消息处理
