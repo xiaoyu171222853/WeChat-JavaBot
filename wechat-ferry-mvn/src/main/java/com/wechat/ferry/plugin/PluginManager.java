@@ -1,26 +1,16 @@
 package com.wechat.ferry.plugin;
 
 import com.wechat.ferry.service.WeChatDllService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.ruojy.chatbot.ChatBotPlugin;
 import top.ruojy.chatbot.entity.MessageRequest;
-import top.ruojy.chatbot.entity.MessageResponse;
 import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendEmojiMsgReq;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendFileMsgReq;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendImageMsgReq;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendTextMsgReq;
-import top.ruojy.chatbot.enums.MessageTypeEnum;
-
-import javax.annotation.PostConstruct;
+import top.ruojy.chatbot.entity.vo.request.*;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.*;
-
-import static com.wechat.ferry.enums.WcfMsgTypeEnum.*;
 
 @Service
 public class PluginManager {
@@ -29,7 +19,7 @@ public class PluginManager {
     private List<ChatBotPlugin> sortedPlugins;
 
     // 定义一个线程安全的消息队列
-    private Queue<MessageRequest> messageQueue = new ConcurrentLinkedQueue<>();
+    private final Queue<MessageRequest> messageQueue = new ConcurrentLinkedQueue<>();
     private ExecutorService executorService;
     private ScheduledExecutorService scheduler;
     private volatile boolean isProcessing;
@@ -65,9 +55,9 @@ public class PluginManager {
      * @param wxPpMsgDTO 消息内容
      * @return 插件处理后的响应
      */
-    public <T> void handleGroupMessage(WxPpMsgDTO wxPpMsgDTO) {
+    public void handleGroupMessage(WxPpMsgDTO wxPpMsgDTO) {
         for (ChatBotPlugin plugin : sortedPlugins) {
-            MessageRequest<T> request = plugin.handleGroupMessage(wxPpMsgDTO);
+            MessageRequest request = plugin.handleGroupMessage(wxPpMsgDTO);
             if (request != null) {
                 // 将返回的消息请求添加到队列
                 messageQueue.add(request);
@@ -82,9 +72,9 @@ public class PluginManager {
      *
      * @return 插件处理后的响应
      */
-    public <T> void handleGroupAtMeMessage(WxPpMsgDTO wxPpMsgDTO) {
+    public void handleGroupAtMeMessage(WxPpMsgDTO wxPpMsgDTO) {
         for (ChatBotPlugin plugin : sortedPlugins) {
-            MessageRequest<T> request = plugin.handleGroupAtMeMessage(wxPpMsgDTO);
+            MessageRequest request = plugin.handleGroupAtMeMessage(wxPpMsgDTO);
             if (request != null) {
                 // 将返回的消息请求添加到队列
                 messageQueue.add(request);
@@ -99,9 +89,9 @@ public class PluginManager {
      * @param wxPpMsgDTO 消息内容
      * @return 插件处理后的响应
      */
-    public <T> void handlePersonalMessage(WxPpMsgDTO wxPpMsgDTO) {
+    public void handlePersonalMessage(WxPpMsgDTO wxPpMsgDTO) {
         for (ChatBotPlugin plugin : sortedPlugins) {
-            MessageRequest<T> request = plugin.handlePersonalMessage(wxPpMsgDTO);
+            MessageRequest request = plugin.handlePersonalMessage(wxPpMsgDTO);
             if (request != null) {
                 // 将返回的消息请求添加到队列
                 messageQueue.add(request);
@@ -116,9 +106,9 @@ public class PluginManager {
      * @param wxPpMsgDTO 消息内容
      * @return 插件处理后的响应
      */
-    public <T> void handleSubscriptionMessage(WxPpMsgDTO wxPpMsgDTO) {
+    public void handleSubscriptionMessage(WxPpMsgDTO wxPpMsgDTO) {
         for (ChatBotPlugin plugin : sortedPlugins) {
-            MessageRequest<T> request = plugin.handleSubscriptionMessage(wxPpMsgDTO);
+            MessageRequest request = plugin.handleSubscriptionMessage(wxPpMsgDTO);
             if (request != null) {
                 // 将返回的消息请求添加到队列
                 messageQueue.add(request);
@@ -131,7 +121,7 @@ public class PluginManager {
     // 消息队列处理器（如果有异步处理需求）
     public void processQueue() {
         while (!messageQueue.isEmpty()) {
-            MessageRequest<?> request = messageQueue.poll();
+            MessageRequest request = messageQueue.poll();
             if (request != null) {
                 // 根据类型调用相应的发送方法
                 switch (request.getMessageTypeEnum()) {
@@ -140,6 +130,18 @@ public class PluginManager {
                         break;
                     case EMOJI:
                         weChatDllService.sendEmojiMsg((WxPpWcfSendEmojiMsgReq) request.getRequest());
+                        break;
+                    case IMAGE:
+                        weChatDllService.sendImageMsg((WxPpWcfSendImageMsgReq) request.getRequest());
+                        break;
+                    case RICHTER:
+                        weChatDllService.sendRichTextMsg((WxPpWcfSendRichTextMsgReq) request.getRequest());
+                        break;
+                    case FILE:
+                        weChatDllService.sendFileMsg((WxPpWcfSendFileMsgReq) request.getRequest());
+                        break;
+                    case XML:
+                        weChatDllService.sendXmlMsg((WxPpWcfSendXmlMsgReq) request.getRequest());
                         break;
                     default:
                         break;
