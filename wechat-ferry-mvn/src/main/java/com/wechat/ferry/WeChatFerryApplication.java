@@ -1,6 +1,7 @@
 package com.wechat.ferry;
 
 import com.wechat.ferry.plugin.PluginManager;
+import com.wechat.ferry.socket.handler.WebSocketClientService;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class WeChatFerryApplication implements CommandLineRunner {
     private ApplicationContext applicationContext;
 
     @Resource
+    private WebSocketClientService webSocketClientService;
+    @Resource
     private PluginManager pluginManager;
 
     public static void main(String[] args) {
@@ -41,6 +44,7 @@ public class WeChatFerryApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args){
+        webSocketClientService.startClient();
         // 插件所在目录
         File pluginDirectory = new File("src/main/resources/plugins");
 
