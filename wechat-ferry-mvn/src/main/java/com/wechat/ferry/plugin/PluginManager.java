@@ -1,11 +1,12 @@
 package com.wechat.ferry.plugin;
 
-import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.stereotype.Service;
-import top.ruojy.chatbot.ChatBotPlugin;
-import top.ruojy.chatbot.entity.MessageRequest;
-import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
-import top.ruojy.chatbot.entity.vo.request.*;
+import top.ruojy.wxbot.ChatBotPlugin;
+import top.ruojy.wxbot.entity.MessageRequest;
+import top.ruojy.wxbot.entity.dto.WxPpMsgDTO;
+import top.ruojy.wxbot.entity.vo.request.*;
+import top.ruojy.wxbot.service.WeChatDllService;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;

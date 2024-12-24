@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import io.sisu.nng.Socket;
+import io.sisu.nng.pair.Pair1Socket;
 import org.springframework.util.ObjectUtils;
 
 import com.alibaba.fastjson2.JSONObject;
@@ -30,10 +32,8 @@ import com.wechat.ferry.service.SDK;
 import com.wechat.ferry.utils.HttpClientUtil;
 import com.wechat.ferry.utils.XmlJsonConvertUtil;
 
-import io.sisu.nng.Socket;
-import io.sisu.nng.pair.Pair1Socket;
 import lombok.extern.slf4j.Slf4j;
-import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
+import top.ruojy.wxbot.entity.dto.WxPpMsgDTO;
 
 /**
  * 处理层-微信客户端

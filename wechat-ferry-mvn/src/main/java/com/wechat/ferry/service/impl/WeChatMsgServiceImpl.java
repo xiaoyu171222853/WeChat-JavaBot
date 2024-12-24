@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.wechat.ferry.plugin.PluginManager;
-import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -17,14 +16,8 @@ import com.wechat.ferry.service.WeChatMsgService;
 import com.wechat.ferry.utils.HttpClientUtil;
 
 import lombok.extern.slf4j.Slf4j;
-import top.ruojy.chatbot.entity.MessageRequest;
-import top.ruojy.chatbot.entity.MessageResponse;
-import top.ruojy.chatbot.entity.dto.WxPpMsgDTO;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendEmojiMsgReq;
-import top.ruojy.chatbot.entity.vo.request.WxPpWcfSendTextMsgReq;
-import top.ruojy.chatbot.entity.vo.response.WxPpWcfSendEmojiMsgResp;
-import top.ruojy.chatbot.entity.vo.response.WxPpWcfSendTextMsgResp;
-import top.ruojy.chatbot.enums.MessageTypeEnum;
+import top.ruojy.wxbot.entity.dto.WxPpMsgDTO;
+import top.ruojy.wxbot.service.WeChatDllService;
 
 /**
  * 业务实现层-消息处理
