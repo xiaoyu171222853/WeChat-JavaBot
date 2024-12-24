@@ -1,7 +1,5 @@
 package com.wechat.ferry.service;
 
-import top.ruojy.chatbot.entity.MessageResponse;
-
 /**
  * 业务接口-消息处理
  *

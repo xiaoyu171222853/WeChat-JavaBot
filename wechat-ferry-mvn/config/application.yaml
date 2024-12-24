@@ -14,6 +14,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  # 打成jar包必须添加如下配置才能找到页面
+  thymeleaf:
+    mode: HTML
+    cache: false
+    prefix: classpath:/templates
 
 # 日志配置
 logging:
@@ -23,7 +28,7 @@ logging:
 wechat:
   ferry:
     # DLL文件位置
-    dll-path: D:\project\my\WeChatFerry\wechat-ferry-mvn\dll\sdk.dll
+    dll-path: D:\project\my\WeChatFerry-JavaBot\wechat-ferry-mvn\dll\sdk.dll
     # socket端口
     socket-port: 10086
     # 需要开启消息处理的群
@@ -56,6 +61,11 @@ wechat:
       code: '200'
 ruojy:
   token: MyToken
-  wsUrl: wss://api.ruojy.top/api/ws
+  plugin: D:\project\my\WeChatFerry-JavaBot\wechat-ferry-mvn\config\plugins
+  wsUrl: ws://82.157.132.175:6099/api/ws #ws://172.16.76.240:5710/api/ws
   reConnectToServerTimeout: 30 # 尝试重连间隔时间
   overTimeout: 10 # 超时断开重试时间
+
+plugin:
+  hello:
+    developerName: 小宇

@@ -11,7 +11,6 @@ import java.util.function.Function;
 
 import javax.annotation.Resource;
 
-import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -29,8 +28,9 @@ import com.wechat.ferry.handle.WeChatSocketClient;
 import com.wechat.ferry.utils.HttpClientUtil;
 
 import lombok.extern.slf4j.Slf4j;
-import top.ruojy.chatbot.entity.vo.request.*;
-import top.ruojy.chatbot.entity.vo.response.*;
+import top.ruojy.wxbot.entity.vo.request.*;
+import top.ruojy.wxbot.entity.vo.response.*;
+import top.ruojy.wxbot.service.WeChatDllService;
 
 /**
  * 业务实现层-对接原本DLL的接口
@@ -302,6 +302,7 @@ public class WeChatDllServiceImpl implements WeChatDllService {
                                     }
                                     vo.setGroupNickName(nickName);
                                     vo.setState(String.valueOf(member.getState()));
+                                    // TODO 待补充
                                     list.add(vo);
                                 }
                             } catch (InvalidProtocolBufferException e) {
@@ -363,6 +364,7 @@ public class WeChatDllServiceImpl implements WeChatDllService {
         return null;
     }
 
+    @Deprecated
     @Override
     public WxPpWcfSendEmojiMsgResp sendEmojiMsg(WxPpWcfSendEmojiMsgReq request) {
         int state = wechatSocketClient.sendEmotion(request.getResourcePath(), request.getRecipient());

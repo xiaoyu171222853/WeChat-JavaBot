@@ -2,7 +2,6 @@ package com.wechat.ferry.controller;
 
 import java.util.List;
 
-import com.wechat.ferry.service.WeChatDllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +16,9 @@ import com.wechat.ferry.enums.ResponseCodeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import top.ruojy.chatbot.entity.vo.request.*;
-import top.ruojy.chatbot.entity.vo.response.*;
-
+import top.ruojy.wxbot.entity.vo.request.*;
+import top.ruojy.wxbot.entity.vo.response.*;
+import top.ruojy.wxbot.service.WeChatDllService;
 
 /**
  * 控制层-微信DLL处理
