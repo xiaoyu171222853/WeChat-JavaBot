@@ -222,5 +222,5 @@ wechat:
 - [ ] 插件中心
 
 # 交流群
-![交流群](group.png)
+![交流群](image.png)
 
