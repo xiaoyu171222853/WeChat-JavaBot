@@ -1,7 +1,6 @@
-# WeChatFerry
+# WeChatFerry Java 客户端 maven - plugin版
 
-一个玩微信的工具。更多介绍见：[WeChatFerry: 一个玩微信的工具](https://mp.weixin.qq.com/s/CGLfSaNDy8MyuyPWGjGJ7w)。
-
+本项目基于 [WeChatFerry](https://github.com/lich0821/WeChatFerry) 项目，感谢原作者及所有贡献者。
 <details><summary><font color="red" size="12">免责声明【必读】</font></summary>
 
 本工具仅供学习和技术研究使用，不得用于任何商业或非法行为，否则后果自负。
@@ -16,258 +15,212 @@
 
 </details>
 
-|[📖 Python 文档](https://wechatferry.readthedocs.io/)|[📺 Python 视频教程](https://mp.weixin.qq.com/s/APdjGyZ2hllXxyG_sNCfXQ)|[🙋 FAQ](https://mp.weixin.qq.com/s/YvgFFhF6D-79kXDzRqtg6w)|
-|:-:|:-:|:-:|
+⚠️ **只支持 Windows** ⚠️
 
-👉 [WeChatRobot🤖](https://github.com/lich0821/WeChatRobot)，一个基于 WeChatFerry 的 Python 机器人框架。
+`声明：` 本项目是基于 WeChatFerry clients/java/wcferry 项目改造，支持插件化实现自己想要的功能。
+## 快速使用1
+### 环境准备
+| 名称    | 版本        | 备注 |
+|-------|-----------|----|
+| JDK/JRE   | 1.8+      | √  |
+| 微信    | 3.9.11.25 | √  |
 
-|![碲矿](assets/TEQuant.jpg)|![赞赏](assets/QR.jpeg)|
-|:-:|:-:|
-|后台回复 `WCF` 加群交流|如果你觉得有用|
-
-<details><summary>点击查看功能清单</summary>
-
-* 获取登录二维码
-* 查询登录状态
-* 获取登录账号信息
-* 获取消息类型
-* 获取联系人
-* 获取可查询数据库
-* 获取数据库所有表
-* 获取语音消息
-* 发送文本消息（可 @）
-* 发送图片消息
-* 发送文件消息
-* 发送卡片消息
-* 发送 XML 消息
-* 发送 GIF 消息
-* 拍一拍群友
-* 转发消息
-* 开启接收消息
-* 关闭接收消息
-* 查询数据库
-* 获取朋友圈消息
-* 下载图片、视频、文件
-* 解密图片
-* 添加群成员
-* 删除群成员
-* 邀请群成员
-
-</details>
-
-<details><summary>点击查看支持的客户端</summary>
-
-* Python
-* HTTP
-* NodeJS
-
-</details>
-
-## 感谢大佬们贡献代码
-
-<a href="https://github.com/lich0821/WeChatFerry/graphs/contributors">![](https://contrib.rocks/image?repo=lich0821/WeChatFerry&columns=8)</a>
-
-## 快速开始
-### Python
-[![PyPi](https://img.shields.io/pypi/v/wcferry.svg)](https://pypi.python.org/pypi/wcferry) [![Downloads](https://static.pepy.tech/badge/wcferry)](https://pypi.python.org/pypi/wcferry) [![Documentation Status](https://readthedocs.org/projects/wechatferry/badge/?version=latest)](https://wechatferry.readthedocs.io/zh/latest/?badge=latest)
-
-* 安装
-```sh
-pip install --upgrade wcferry
+### 版本命名规则
+```xml
+    <artifactId>ChatFerry-Java-Bot</artifactId>
+    <packaging>jar</packaging>
+    <name>wxbot-plugin</name>
+    <version>0.3.0_39.3.3</version>
+    <description>WeChatFerry客户端Java-Maven-plugin版</description>
 ```
+版本命名规则：`该客户端版本_WeChatFerry版本`
+### 对应微信版本一览
 
-* 参考框架：[🤖WeChatRobot](https://github.com/lich0821/WeChatRobot)
+| 客户端版本         | 微信版本  |
+|---------------|-------|
+| 0.3.0_39.3.3  | [3.9.11.25](https://github.com/lich0821/WeChatFerry/releases/download/v39.3.3/WeChatSetup-3.9.11.25.exe) |
 
-### HTTP
-* [wcfrust](https://github.com/lich0821/wcf-client-rust)（基于 Rust）
-* [go_wcf_http](clients/go_wcf_http/README.MD)（基于 Go）
-* [wcf-http](https://github.com/yuxiaoli/wcf-http)（基于 Python）
+gui界面也设置对应微信版本下载链接
 
-### Java
-* [java](clients/java/wcferry/README.MD)
+#### 下载文件
 
-### NodeJS
-* [wcferry-node](https://github.com/dr-forget/wcferry-node)
-* [node-wcferry](https://github.com/stkevintan/node-wcferry)
-* [wechatferry](https://github.com/wechatferry/wechatferry)
+下载jar包 请在release中下载并运行jar包。
 
-### C#
-* [WeChatFerry-CSharp](https://github.com/send010/WeChatFerry-CSharp)
+下载dll [发布的文件](https://github.com/lich0821/WeChatFerry/releases)
 
-### Rust
-* [wechat-bot](https://github.com/CliffHan/wechat-bot)
+dll版本，请与本框架版本进行对应
 
-### Docker
-* [docker_wechat](https://github.com/Saroth/docker_wechat)
-* [wechatbot-provider-windows](https://github.com/danni-cool/wechatbot-provider-windows)
-
-## 一起开发
-
-> 🚫 非开发用户不需要往下看。
->
-> **开发用户**：可以根据文档和错误提示，自行解决编译错误的人员。
-
-### 安装开发环境
-
-<details><summary>点击查看</summary>
-
-#### 安装 vcpkg
-
-* 安装，参考[Vcpkg: 总览](https://github.com/microsoft/vcpkg/blob/master/README_zh_CN.md)。
-
-```sh
-cd C:\Tools
-git clone https://github.com/microsoft/vcpkg
-.\vcpkg\bootstrap-vcpkg.bat
-```
-
-* 添加全局配置：
-环境变量增加 `vcpkg` 所在路径（本文为：`C:\Tools\vcpkg`）：
-```sh
-setx VCPKG_ROOT "C:/Tools/vcpkg" /M
-```
-
-* 与 Visual Studio 集成
-```sh
-vcpkg integrate install # 失败则说明未正确安装或者未正确配置环境变量
-```
-
-#### 安装相关组件
-
-编译时会自动安装。但如果需要使用 `protoc.exe`，则需要配置一下 `protoc.exe` 环境变量：`<vcpkg_package_installed_path>\x64-windows-static\x64-windows-static\tools\protobuf`。
-
-（本文为：`C:\Projs\WeChatFerry\WeChatFerry\vcpkg_installed\x64-windows-static\x64-windows-static\tools\protobuf`）
-
-#### 安装 VS2019
-
-#### 安装 Python3
-
-通过微软商店或者 python.org 自行下载均可（注意 `python` 版本不能太高，否则需要自行编译依赖，建议使用 python 3.10），然后配置好环境变量，确保 `python` 在命令行下可用。
-
-安装依赖：
-```sh
-pip install grpcio-tools==1.48.2
-```
-
-</details>
-
-### 编译
-
-使用 VS2019 打开工程，编译即可。编译成功后，在 `WeChatFerry\WeChatFerry\Out` 目录中会看到相应的 DLL 文件。
-
-**注**：如果遇到执行 `protoc` 时的 9009 错误，检查是否是 python3 环境有问题，或者 protoc 命令的环境变量配置不正确。
+如本框架为 0.3.0_39.3.3 根据版本命名规则：`该客户端版本_WeChatFerry版本` 需要下载v39.3.3下的v39.3.3.zip
 
 ### 运行
-```py
-import ctypes
-# 加载 sdk.dll （需要绝对路径）
-sdk = ctypes.cdll.LoadLibrary("C:/Projs/WeChatFerry/WeChatFerry/Out/sdk.dll")
 
-# 初始化
-sdk.WxInitSDK(False, 10086)
+复制 config文件夹到jar包同级目录
 
-# 退出 SDK
-sdk.WxDestroySDK()
+根据gui界面修改配置文件【dll文件位置、[若智云Token](https://www.ruojy.top)】，启动即可
 
-# 注意关闭 Python 进程
+## 快速使用2
+
+### 环境准备
+
+| 名称    | 版本        | 备注 |
+|-------|-----------|----|
+| JDK/JRE   | 1.8+      | √  |
+| Maven | 3.6+      | √  |
+| 微信    | 3.9.11.25 | √  |
+
+#### 下载文件
+
+下载dll [发布的文件](https://github.com/lich0821/WeChatFerry/releases)
+
+### 使用惯用 IDE，打开工程
+以wechat-ferry-mvn为根目录打开
+
+### 添加Maven
+
+找到 wechat-ferry-mvn/pom.xml 文件，右键添加到Maven中，会自动下载依赖
+
+### 替换对应版本的dll
+
+把刚下载的最新发布文件解压到本项目中的 dll 文件目录下，直接替换原因文件即可
+
+### 修改配置文件
+
+配置文件：config/application.yaml
+
+根据自己的dll目录位置修改配置文件
+
+根据自己的[若智云](https://www.ruojy.top)Token修改token
+```yaml
+# 本服务参数
+wechat:
+  ferry:
+    # DLL文件位置
+    dll-path: E:\WeChatFerry\clients\java\wechat-ferry-mvn\dll\sdk.dll
+    # socket端口
+    socket-port: 10086
+
+ruojy:
+  token: YourToken
+```
+### 寻找插件
+所有的插件我将会放在 插件中心[暂无地址](#)，大家需自行下载，后续将引入插件中心，允许开发者自行上传
+
+没有插件也可以直接启动，就是没功能罢了
+#### 写给插件开发者
+插件开发文档请见：[插件开发接口工具包](https://gitee.com/xiaoyudi_xyz/wx-bot-dev-plugin)
+
+### 编译运行
+
+找到 src/main/java/com/wechat/ferry/WeChatFerryApplication.java 类
+
+直接启动即可
+
+### 访问
+
+启动后springboot自身的端口为 9201 微信socket的端口为 10086
+
+swagger地址：http://localhost:9201/swagger-ui/index.html
+
+## 参与开发
+🚫 非开发用户不需要往下看。
+
+开发用户：可以根据文档和错误提示，自行解决编译错误的人员。
+### 核心依赖
+
+| 依赖            | 版本     | 说明       |
+|---------------|--------|----------|
+| Spring Boot   | 2.7.18 | 基础框架     |
+| protobuf-java | 3.22.2 | rpc      |
+| jna           | 5.6.0  | 态访问系统本地库 |
+| nng-java      | 1.4.0  | 本地包      |
+| fastjson2     | 2.0.52 | 序列化      |
+| dom4j         | 2.1.3  | XML解析包   |
+| httpclient    | 4.5.13 | 客户端请求    |
+
+### 模块结构
+
+```
+wechat-ferry-mvn
+├─dll                                       核心dll
+│  ├─sdk.dll                                sdk文件
+│  └─readme.txt                             本目录说明文件
+│ 
+├─src                                       源
+│  ├─main                                   重启命令
+│  │  ├─java(com.wechat.ferry)              java代码目录
+│  │  │  ├─config                           配置
+│  │  │  ├─entity                           聚合模型
+│  │  │  │  ├─po                            数据库实体(与表结构一一对应,否则请使用DTO)
+│  │  │  │  └─proto                         PB实体
+│  │  │  ├─enums                            枚举
+│  │  │  ├─handle                           处理层
+│  │  │  ├─plugin                           插件管理
+│  │  │  ├─service                          业务接口
+│  │  │  │  └─impl                          业务实现类
+│  │  │  ├─socket                           与若智云通信层交互
+│  │  │  ├─swing                            swing/gui界面类
+│  │  │  ├─utils                            工具类
+│  │  │  └─WcferryApplication.java          启动类
+│  │  │
+│  │  │resources                            资源目录
+│  │  │  ├─libs                             本程序内置依赖包
+│  │  │  ├─plugins                          插件
+│  │  │  ├─proto                            proto文件(此目录打包将被排除)
+│  │  │  ├─win32-x86-64                     依赖程序
+│  │  │  ├─application.yml                  本程序主配置文件
+│  │  │  └─logback-spring.xml               日志配置文件
+│ 
+├─pom.xml                                   POM文件
+└─README.MD                                 说明文件
+
 ```
 
-### 调试日志
-```c
-    DbgMsg("ListenMessage"); // 封装的 OutputDebugString
-    OutputDebugString(L"ListenMessage\n");
-    MessageBox(NULL, L"ListenMessage", L"ListenMessage", 0);
+### 配置说明
+
+本程序主配置文件为 application.yml
+
+#### 配置参数
+
+本程序内置参数统一前缀：wechat.ferry 所有自定义本服务的参数请都放置在此前缀下，如：
+
+```ymal
+wechat:
+  ferry:
+    # DLL文件位置
+    dll-path: /dll/sdk.dll
 ```
 
-## 项目结构
+## 客户端功能清单
+- 插件化扩展功能
+- 获取登录二维码
+- 查询登录状态
+- 获取登录账号信息
+- 获取消息类型
+- 获取联系人
+- 获取可查询数据库
+- 获取数据库所有表
+- 获取语音消息
+- 发送文本消息（可 @）
+- 发送图片消息
+- 发送文件消息
+- 发送卡片消息
+- 发送 XML 消息
+- 发送 GIF 消息
+- 拍一拍群友
+- 转发消息
+- 开启接收消息
+- 关闭接收消息
+- 查询数据库
+- 获取朋友圈消息
+- 下载图片、视频、文件
+- 解密图片
+- 添加群成员
+- 删除群成员
+- 邀请群成员
 
-```sh
-WeChatFerry
-├── LICENSE                 # LICENSE
-├── README.MD               # 说明
-├── WeChatFerry
-│   ├── WeChatFerry.sln     # VS2019 工程文件
-│   ├── com                 # 公共模块
-│   ├── rpc                 # RPC 模块
-│   ├── sdk                 # 注入及启动模块
-│   ├── smc                 # Silk-Mp3 转换模块
-│   └── spy                 # 核心功能实现模块
-├── assets
-│   ├── QR.jpeg             # 二维码，测试用图
-│   ├── TEQuant.jpg         # 二维码，测试用图
-│   └── demo.gif            # 示例动图
-├── clients
-│   ├── go                  # Go 客户端
-│   ├── gohttp              # HTTP 客户端
-│   ├── http                # HTTP 客户端
-│   ├── java                # Java 客户端
-│   ├── node                # Node.js 客户端
-│   ├── pyauto              # 群友封装的客户端
-│   ├── python              # Python 客户端
-│   └── rust                # Rust 客户端
-└── docs                    # 文档
+## 待做
+- [ ] 插件中心
 
-```
+# 交流群
+![交流群](group.png)
 
-## 版本更新
-
-### v39.3.4
-
-* 实现获取登录二维码
-
-<details><summary>点击查看更多</summary>
-
-客户端越来越多了，版本号开始混乱，所以重新定义了版本号：`w.x.y.z`。
-
-其中：
-* `w` 是微信的大版本号，如 `37` (3.7.a.a), `38` (3.8.a.a), `39` (3.9.a.a)
-* `x` 是适配的微信的小版本号，从 0 开始
-* `y` 是 `WeChatFerry` 的版本，从 0 开始
-* `z` 是各客户端的版本，从 0 开始
-
-### v39.3.3
-
-* 修复发送文件 / 图片中文路径问题
-
-### v39.3.2
-
-* 修复接收消息问题
-
-### v39.3.0
-
-* 适配 `3.9.11.25`
-
-### v39.2.4
-
-* 修复 wxid 问题
-
-### v39.2.3
-
-* 实现发送 GIF
-
-### v39.2.2
-
-* 修复开启、停止接收消息失败问题
-
-### v39.2.1
-
-* 实现了好多功能（见功能清单）
-
-### v39.2.0
-
-* 开始适配 `3.9.10.27`
-* 实现检查登录状态
-* 实现获取登录账号信息（wxid、昵称、手机号、数据目录）
-* 实现获取消息类型
-* 实现开启接收消息
-* 实现停止接收消息
-* 实现发送文本消息（可 @）
-* 实现发送图片消息
-
-### v39.1.0 (2024.04.19)
-
-* 适配 x64 环境
-* 重构项目
-* 开始适配 `3.9.10.19`
-
-</details>
