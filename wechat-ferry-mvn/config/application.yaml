@@ -62,7 +62,7 @@ wechat:
 ruojy:
   token: MyToken
   plugin: D:\project\my\WeChatFerry-JavaBot\wechat-ferry-mvn\config\plugins
-  wsUrl: ws://82.157.132.175:6099/api/ws #ws://172.16.76.240:5710/api/ws
+  wsUrl: wss://api.ruojy.top/api/ws #ws://172.16.76.240:5710/api/ws
   reConnectToServerTimeout: 30 # 尝试重连间隔时间
   overTimeout: 10 # 超时断开重试时间
 
