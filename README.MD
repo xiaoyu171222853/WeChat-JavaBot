@@ -89,6 +89,11 @@ swagger地址：http://localhost:9201/swagger-ui/index.html
 | dom4j         | 2.1.3  | XML解析包   |
 | httpclient    | 4.5.13 | 客户端请求    |
 
+### clone本仓库
+git clone https://gitee.com/xiaoyudi_xyz/WeChatFerry-JavaBot.git
+
+以wechat-ferry-mvn为根目录打开
+
 ### 模块结构
 
 ```
