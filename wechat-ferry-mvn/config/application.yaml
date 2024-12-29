@@ -60,12 +60,8 @@ wechat:
       # key:状态码字段 val:状态码值
       code: '200'
 ruojy:
-  token: MyToken
+  token: 你的若智云Token # https://www.ruojy.top
   plugin: D:\project\my\WeChatFerry-JavaBot\wechat-ferry-mvn\config\plugins
   wsUrl: wss://api.ruojy.top/api/ws #ws://172.16.76.240:5710/api/ws
   reConnectToServerTimeout: 30 # 尝试重连间隔时间
   overTimeout: 10 # 超时断开重试时间
-
-plugin:
-  hello:
-    developerName: 小宇
