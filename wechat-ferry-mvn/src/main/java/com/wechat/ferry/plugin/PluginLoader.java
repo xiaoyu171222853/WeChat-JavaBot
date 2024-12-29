@@ -1,12 +1,15 @@
 package com.wechat.ferry.plugin;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.wechat.ferry.entity.PluginClass;
 import com.wechat.ferry.entity.PluginPackage;
+import com.wechat.ferry.utils.HttpClientUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import top.ruojy.wxbot.ChatBotPlugin;
 
 import javax.annotation.Resource;
@@ -55,8 +58,10 @@ public class PluginLoader {
                     URLClassLoader classLoader = new URLClassLoader(urls, applicationContext.getClassLoader());
                     pluginContext.setClassLoader(classLoader);
                     pluginContext.setParent(applicationContext);  // 使插件上下文成为主上下文的子上下文
-
-                    pluginContext.scan(new String[]{"top.xiaoyu.plugin","top.ruojt.top"});
+                    List<String> remotePluginGroupIds = getRemotePluginGroupIdS();
+                    // 转为String[]
+                    String[] scanPackages = remotePluginGroupIds.toArray(new String[0]);
+                    pluginContext.scan(scanPackages);
 
                     pluginContext.refresh();
 
@@ -106,5 +111,24 @@ public class PluginLoader {
             log.info("注册插件Bean: " + beanName);
             pluginContext.getAutowireCapableBeanFactory().autowireBean(pluginBean);
         }
+    }
+    /**
+     * 获取插件GroupId
+     */
+    public static String getPluginGroupId(String pluginName) {
+        for (PluginPackage pluginPackage : pluginPackages) {
+            if (pluginPackage.getPackageName().equals(pluginName)) {
+                return pluginPackage.getPackageName();
+            }
+        }
+        return null;
+    }
+    /**
+     * 远程获取插件GroupIdS
+     */
+    public static List<String> getRemotePluginGroupIdS() {
+        String s = HttpClientUtil.doGet("https://www.ruojy.top/api/wx_bot_plugin/findAllGroupIds");
+        JSONObject json = JSONObject.parseObject(s);
+        return (List<String>)json.get("data");
     }
 }
