@@ -18,7 +18,8 @@
 ⚠️ **只支持 Windows** ⚠️
 
 `声明：` 本项目是基于 WeChatFerry clients/java/wcferry 项目改造，支持插件化实现自己想要的功能。
-## 快速使用1
+## 快速使用
+
 ### 环境准备
 | 名称    | 版本        | 备注 |
 |-------|-----------|----|
@@ -38,70 +39,21 @@
 
 | 客户端版本         | 微信版本  |
 |---------------|-------|
-| 0.3.0_39.3.3  | [3.9.11.25](https://github.com/lich0821/WeChatFerry/releases/download/v39.3.3/WeChatSetup-3.9.11.25.exe) |
+| 0.3.0_39.3.3  | [3.9.11.25](https://www.123865.com/s/QqyDVv-9XV0h) |
 
 gui界面也设置对应微信版本下载链接
 
 #### 下载文件
 
-下载jar包 请在release中下载并运行jar包。
-
-下载dll [发布的文件](https://github.com/lich0821/WeChatFerry/releases)
-
-dll版本，请与本框架版本进行对应
-
-如本框架为 0.3.0_39.3.3 根据版本命名规则：`该客户端版本_WeChatFerry版本` 需要下载v39.3.3下的v39.3.3.zip
+下载框架包 请在release中下载wx-bot-client.zip。
 
 ### 运行
+下载后解压压缩包，运行根目录下的.jar文件
 
-复制 config文件夹到jar包同级目录
+根据gui界面修改配置文件【dll文件位置、插件路径、[若智云Token](https://www.ruojy.top)】
 
-根据gui界面修改配置文件【dll文件位置、[若智云Token](https://www.ruojy.top)】，启动即可
+点击“继续” 即可启动
 
-## 快速使用2
-
-### 环境准备
-
-| 名称    | 版本        | 备注 |
-|-------|-----------|----|
-| JDK/JRE   | 1.8+      | √  |
-| Maven | 3.6+      | √  |
-| 微信    | 3.9.11.25 | √  |
-
-#### 下载文件
-
-下载dll [发布的文件](https://github.com/lich0821/WeChatFerry/releases)
-
-### 使用惯用 IDE，打开工程
-以wechat-ferry-mvn为根目录打开
-
-### 添加Maven
-
-找到 wechat-ferry-mvn/pom.xml 文件，右键添加到Maven中，会自动下载依赖
-
-### 替换对应版本的dll
-
-把刚下载的最新发布文件解压到本项目中的 dll 文件目录下，直接替换原因文件即可
-
-### 修改配置文件
-
-配置文件：config/application.yaml
-
-根据自己的dll目录位置修改配置文件
-
-根据自己的[若智云](https://www.ruojy.top)Token修改token
-```yaml
-# 本服务参数
-wechat:
-  ferry:
-    # DLL文件位置
-    dll-path: E:\WeChatFerry\clients\java\wechat-ferry-mvn\dll\sdk.dll
-    # socket端口
-    socket-port: 10086
-
-ruojy:
-  token: YourToken
-```
 ### 寻找插件
 所有的插件我将会放在 插件中心[暂无地址](#)，大家需自行下载，后续将引入插件中心，允许开发者自行上传
 
@@ -141,34 +93,34 @@ swagger地址：http://localhost:9201/swagger-ui/index.html
 
 ```
 wechat-ferry-mvn
+├─config                                    配置文件及插件
+│  ├─plugins                                插件目录
+│  └─application.yaml                       本程序主配置文件
 ├─dll                                       核心dll
-│  ├─sdk.dll                                sdk文件
-│  └─readme.txt                             本目录说明文件
+│  └─sdk.dll                                sdk文件
 │ 
 ├─src                                       源
-│  ├─main                                   重启命令
-│  │  ├─java(com.wechat.ferry)              java代码目录
-│  │  │  ├─config                           配置
-│  │  │  ├─entity                           聚合模型
-│  │  │  │  ├─po                            数据库实体(与表结构一一对应,否则请使用DTO)
-│  │  │  │  └─proto                         PB实体
-│  │  │  ├─enums                            枚举
-│  │  │  ├─handle                           处理层
-│  │  │  ├─plugin                           插件管理
-│  │  │  ├─service                          业务接口
-│  │  │  │  └─impl                          业务实现类
-│  │  │  ├─socket                           与若智云通信层交互
-│  │  │  ├─swing                            swing/gui界面类
-│  │  │  ├─utils                            工具类
-│  │  │  └─WcferryApplication.java          启动类
-│  │  │
-│  │  │resources                            资源目录
-│  │  │  ├─libs                             本程序内置依赖包
-│  │  │  ├─plugins                          插件
-│  │  │  ├─proto                            proto文件(此目录打包将被排除)
-│  │  │  ├─win32-x86-64                     依赖程序
-│  │  │  ├─application.yml                  本程序主配置文件
-│  │  │  └─logback-spring.xml               日志配置文件
+│  └─main                                   重启命令
+│     ├─java(com.wechat.ferry)              java代码目录
+│     │  ├─config                           配置
+│     │  ├─entity                           聚合模型
+│     │  │  ├─po                            数据库实体(与表结构一一对应,否则请使用DTO)
+│     │  │  └─proto                         PB实体
+│     │  ├─enums                            枚举
+│     │  ├─handle                           处理层
+│     │  ├─plugin                           插件管理
+│     │  ├─service                          业务接口
+│     │  │  └─impl                          业务实现类
+│     │  ├─swing                            swing/gui界面类
+│     │  ├─utils                            工具类
+│     │  └─WeChatFerryApplication.java      启动类
+│     │
+│     └─resources                           资源目录
+│        ├─img                              swing图片
+│        ├─libs                             本程序内置依赖包
+│        ├─proto                            proto文件(此目录打包将被排除)
+│        ├─win32-x86-64                     依赖程序
+│        └─logback-spring.xml               日志配置文件
 │ 
 ├─pom.xml                                   POM文件
 └─README.MD                                 说明文件
@@ -177,7 +129,7 @@ wechat-ferry-mvn
 
 ### 配置说明
 
-本程序主配置文件为 application.yml
+本程序主配置文件为 application.yaml
 
 #### 配置参数
 
@@ -222,5 +174,4 @@ wechat:
 - [ ] 插件中心
 
 # 交流群
-![交流群](image.png)
-
+![交流群](group.png)
