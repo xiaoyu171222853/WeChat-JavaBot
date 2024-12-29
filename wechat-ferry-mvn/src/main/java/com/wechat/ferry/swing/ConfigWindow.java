@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -61,11 +62,6 @@ public class ConfigWindow {
         downloadLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         downloadLabel.setPreferredSize(new Dimension(300, 30));  // 设置适当的首选大小
         downloadLabel.setMaximumSize(new Dimension(300, 30));    // 设置最大宽度
-
-        // 创建进度条
-        JProgressBar progressBar = new JProgressBar(0, 100);
-        progressBar.setStringPainted(true); // 显示进度百分比
-        progressBar.setValue(0); // 初始值为0
 
         // 设置文本框的最小宽度和首选宽度
         dllField.setMinimumSize(new Dimension(250, 40));
@@ -120,10 +116,6 @@ public class ConfigWindow {
         gbc.gridy = 5;
         frame.add(downloadLabel, gbc);  // 添加下载链接
 
-        // 进度条
-        gbc.gridy = 6;
-        frame.add(progressBar, gbc);  // 添加进度条
-
         // 加载配置
         loadConfig();
 
@@ -151,19 +143,7 @@ public class ConfigWindow {
         downloadLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // 弹出目录选择对话框
-                JFileChooser folderChooser = new JFileChooser();
-                folderChooser.setDialogTitle("选择保存目录");
-                folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                folderChooser.setAcceptAllFileFilterUsed(false);
-                int result = folderChooser.showSaveDialog(frame);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedDirectory = folderChooser.getSelectedFile();
-                    String destination = selectedDirectory.getAbsolutePath() + File.separator + "WeChatSetup-3.9.11.25.exe";
-                    JOptionPane.showMessageDialog(frame, "下载将开始，请保持主界面开启..");
-                    startDownload(destination);
-                }
+                startDownload();
             }
         });
 
@@ -252,48 +232,21 @@ public class ConfigWindow {
     }
 
     // 启动下载任务
-    private void startDownload(String destination) {
-        String fileUrl = "https://dldir1v6.qq.com/weixin/Windows/WeChatSetup.exe";
-        downloadWorker = new SwingWorker<Void, Integer>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                try (InputStream in = new URL(fileUrl).openStream();
-                     OutputStream out = new FileOutputStream(destination)) {
-                    HttpURLConnection connection = (HttpURLConnection) new URL(fileUrl).openConnection();
-                    int fileSize = connection.getContentLength();
-                    byte[] buffer = new byte[1024];
-                    int bytesRead, totalBytesRead = 0;
+    private void startDownload() {
+        try {
+            // 指定网址
+            URI uri = new URI("https://www.123865.com/s/QqyDVv-9XV0h");
 
-                    while ((bytesRead = in.read(buffer)) != -1) {
-                        if (isCancelled()) {
-                            return null;
-                        }
-                        totalBytesRead += bytesRead;
-                        out.write(buffer, 0, bytesRead);
-                        int progress = (int) ((totalBytesRead / (float) fileSize) * 100);
-                        publish(progress);
-                    }
-                } catch (IOException e) {
-                    showError("下载失败: " + e.getMessage());
-                }
-                return null;
+            // 判断是否支持桌面操作
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                // 打开浏览器
+                desktop.browse(uri);
+            } else {
+                System.out.println("Desktop is not supported on this system.");
             }
-
-            @Override
-            protected void process(java.util.List<Integer> chunks) {
-                int progress = chunks.get(chunks.size() - 1);
-                // 更新进度条
-            }
-
-            @Override
-            protected void done() {
-                if (isCancelled()) {
-                    JOptionPane.showMessageDialog(frame, "下载已取消！");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "下载成功！");
-                }
-            }
-        };
-        downloadWorker.execute();  // 开始下载任务
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

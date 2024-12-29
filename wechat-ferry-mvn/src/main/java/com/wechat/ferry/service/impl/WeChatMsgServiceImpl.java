@@ -44,28 +44,34 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
         // 转为JSON对象
         WxPpMsgDTO dto = JSON.parseObject(jsonString, WxPpMsgDTO.class);
         log.info(dto.toString());
-
-        // 有开启的群聊配置
-        if (!CollectionUtils.isEmpty(weChatFerryProperties.getOpenMsgGroups())) {
-            // 指定处理的群聊
-            if (weChatFerryProperties.getOpenMsgGroups().contains(dto.getRoomId())) {
-                // 判断是否有艾特我
-                if (weChatDllService.isAtMeMsg(dto.getXml(), dto.getContent())){
-                    log.info("[收到消息]-[收到艾特我]-打印：{}\n", dto);
-                    log.info("消息内容:{}", dto.getContent());
-                    pluginManager.handleGroupAtMeMessage(dto);
+        // 已开启群聊消息处理
+        if (dto.getIsGroup()) {
+            // 判断是否有开启的群聊配置
+            if (!CollectionUtils.isEmpty(weChatFerryProperties.getOpenMsgGroups())) {
+                // 是否为开启的群聊
+                if (weChatFerryProperties.getOpenMsgGroups().contains(dto.getRoomId())) {
+                    // 判断是否有艾特我
+                    if (weChatDllService.isAtMeMsg(dto.getXml(), dto.getContent())){
+                        log.info("[收到消息]-[收到艾特我]-打印：{}\n", dto);
+                        log.info("消息内容:{}", dto.getContent());
+                        pluginManager.handleGroupAtMeMessage(dto);
+                    }else {
+                        log.debug("[收到消息]-[开启群聊]-打印：{}", dto);
+                        pluginManager.handleGroupMessage(dto);
+                    }
                 }else {
-                    log.debug("[收到消息]-[指定群聊]-打印：{}", dto);
-                    // pluginManager.handleGroupMessage(dto);
+                    // [收到消息]-[未开启群聊]
+                    return;
                 }
+            }else {
+                return;
             }
-        }else {
-            // 个人号
-
-            // 公众订阅号
-
         }
-
+        // 判断是否为个人号
+        if (dto.getRoomId().startsWith("wxid_")) {
+            // 私聊
+            pluginManager.handlePersonalMessage(dto);
+        }
     }
 
     private void receiveMsgForward(String jsonString) {

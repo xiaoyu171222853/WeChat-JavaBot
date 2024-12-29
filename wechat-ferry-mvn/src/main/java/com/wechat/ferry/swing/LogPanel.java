@@ -53,7 +53,7 @@ public class LogPanel {
                     new FileInputStream(logFile), StandardCharsets.UTF_8))) {
                 LinkedList<String> lines = new LinkedList<>();
                 String line;
-
+                logText.setText("");
                 // 读取每一行并将其存储在链表中
                 while ((line = reader.readLine()) != null) {
                     if (lines.size() >= MAX_LINES_TO_LOAD) {
