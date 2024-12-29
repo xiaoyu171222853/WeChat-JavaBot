@@ -107,17 +107,17 @@ public class PluginManager {
      * @param wxPpMsgDTO 消息内容
      * @return 插件处理后的响应
      */
-    public void handleSubscriptionMessage(WxPpMsgDTO wxPpMsgDTO) {
-        for (ChatBotPlugin plugin : sortedPlugins) {
-            MessageRequest request = plugin.handleSubscriptionMessage(wxPpMsgDTO);
-            if (request != null) {
-                // 将返回的消息请求添加到队列
-                messageQueue.add(request);
-                startQueueProcessing(30);
-                break;
-            }
-        }
-    }
+//    public void handleSubscriptionMessage(WxPpMsgDTO wxPpMsgDTO) {
+//        for (ChatBotPlugin plugin : sortedPlugins) {
+//            MessageRequest request = plugin.handleSubscriptionMessage(wxPpMsgDTO);
+//            if (request != null) {
+//                // 将返回的消息请求添加到队列
+//                messageQueue.add(request);
+//                startQueueProcessing(30);
+//                break;
+//            }
+//        }
+//    }
 
     // 消息队列处理器（如果有异步处理需求）
     public void processQueue() {
