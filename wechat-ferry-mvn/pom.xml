@@ -14,7 +14,7 @@
     <artifactId>ChatFerry-Java-Bot</artifactId>
     <packaging>jar</packaging>
     <name>wxbot-plugin</name>
-    <version>0.3.0_39.3.3</version>
+    <version>0.3.1_39.3.3</version>
     <description>WeChatFerry客户端Java-Maven-plugin版</description>
 
     <properties>

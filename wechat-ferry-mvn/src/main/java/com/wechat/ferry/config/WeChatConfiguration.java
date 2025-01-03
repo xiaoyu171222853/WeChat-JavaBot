@@ -72,7 +72,7 @@ public class WeChatConfiguration {
         // client.sendEmotion("C:\\Projs\\WeChatFerry\\emo.gif", "filehelper");
 
         // 使用本机打印
-        String url = "http://localhost:" + serverProperties.getPort() + "/config/wechat/msg/receive";
+        String url = "http://localhost:" + serverProperties.getPort() + "/wechat/msg/receive";
         // 接收消息，并调用 printWxMsg 处理
         wechatSocketClient.enableRecvMsg(100);
         Thread thread = new Thread(new Runnable() {
