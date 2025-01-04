@@ -54,6 +54,34 @@ gui界面也设置对应微信版本下载链接
 
 点击“继续” 即可启动
 
+### 配置
+在框架运行的情况下，访问 http://localhost:9201/swagger-ui/index.html 
+
+进入swagger，微信消息处理-接口->找到并点击获取联系人
+
+依次点击：
+try it out ——> Execute
+
+在返回结果中找到你要开启的微信组群的roomId复制
+
+打开框架config/application.yaml文件
+
+将如下所示 open-msg-groups 更换为你要开启的群聊
+```yaml
+# 本服务参数
+wechat:
+  ferry:
+    # DLL文件位置
+    dll-path: xxxx\sdk.dll
+    # socket端口
+    socket-port: 10086
+    # 需要开启消息处理的群
+    open-msg-groups:
+      - 52155225442@chatroom
+      - 45411596543@chatroom
+```
+
+
 ## 插件
 所有的插件我将会放在 插件中心[暂无地址](#)，大家需自行下载，后续将引入插件中心，允许开发者自行上传
 
