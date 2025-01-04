@@ -40,6 +40,7 @@ public class WeChatFerryApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws InterruptedException {
+        // 加载插件
         pluginLoader.loadPlugins();
     }
 }
