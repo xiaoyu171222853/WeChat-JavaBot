@@ -12,13 +12,11 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 @Log4j2
-@Component
 public class SettingsWindow extends JFrame {
 
     private JTextArea menuTextArea;
 
-    @Value("${ruojy.file-path}")
-    private static String MENU_FILE;
+    private static final String MENU_FILE = "config/menu.txt";
 
     private static final String MENU_CONTENT_TEMPLATE =
         "      以下为框架自动生成模版：\n" +
