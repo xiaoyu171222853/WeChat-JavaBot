@@ -1,4 +1,4 @@
-# WeChatFerry Java 客户端 maven - plugin版
+# WeChatFerry Java 客户端 maven - plugin版——若小智
 
 本项目基于 [WeChatFerry](https://github.com/lich0821/WeChatFerry) 项目，感谢原作者及所有贡献者。
 <details><summary><font color="red" size="12">免责声明【必读】</font></summary>
