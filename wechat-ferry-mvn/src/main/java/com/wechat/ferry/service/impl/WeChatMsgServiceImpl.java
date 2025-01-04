@@ -1,8 +1,6 @@
 package com.wechat.ferry.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
@@ -39,7 +37,7 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
     @Resource
     private PluginManager pluginManager;
 
-    private static final List<String> functions = new ArrayList<>(List.of(new String[]{"菜单"}));
+    private static final List<String> functions = new ArrayList<>(Collections.singletonList("菜单"));
 
     @Override
     public void receiveMsg(String jsonString) {
