@@ -131,7 +131,7 @@ public class PluginManager {
             case "菜单":
                 String menuContent = SettingsWindow.getMenuContent();
                 WxPpWcfSendTextMsgReq textMsgReq = new WxPpWcfSendTextMsgReq();
-                textMsgReq.setMsgText("@"+dto.getSender()+menuContent);
+                textMsgReq.setMsgText(menuContent);
                 textMsgReq.setRecipient(dto.getRoomId());
                 List<String> user = new ArrayList<>();
                 user.add(dto.getSender());
