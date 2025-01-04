@@ -325,7 +325,7 @@ public class WeChatDllServiceImpl implements WeChatDllService {
             // 处理艾特的人员
             if (!CollectionUtils.isEmpty(request.getAtUsers())) {
                 atUser = String.join(",", request.getAtUsers());
-                atUserNickName = dealAtUser(request.getRecipient(), request.getAtUsers());
+                atUserNickName = dealAtUser(request.getAtUsers());
             }
         }
         // 0 为成功，其他失败
@@ -396,6 +396,24 @@ public class WeChatDllServiceImpl implements WeChatDllService {
             return false;
         }
     }
+    @Override
+    public String queryNickNameByUserName(String userName) {
+        List<Wcf.DbRow> dbList = wechatSocketClient.querySql(
+                "MicroMsg.db",
+                "SELECT NickName FROM Contact WHERE UserName = '" + userName + "';"
+        );
+
+        if (!CollectionUtils.isEmpty(dbList)) {
+            for (Wcf.DbRow dbRow : dbList) {
+                for (Wcf.DbField dbField : dbRow.getFieldsList()) {
+                    if ("NickName".equals(dbField.getColumn())) {
+                        return (String) converterSqlVal(dbField.getType(), dbField.getContent());
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     public Function<byte[], Object> getSqlType(int type) {
         Map<Integer, Function<byte[], Object>> sqlTypeMap = new HashMap<>();
@@ -422,14 +440,13 @@ public class WeChatDllServiceImpl implements WeChatDllService {
     /**
      * 转换艾特用户
      *
-     * @param groupNo 群组编号
      * @param atUsers 艾特的用户(名称/微信编号)
      * @return 组装后的艾特用户
      *
      * @author chandler
      * @date 2024-10-03 11:35
      */
-    public String dealAtUser(String groupNo, List<String> atUsers) {
+    public String dealAtUser(List<String> atUsers) {
 
         StringBuilder atUserStr = new StringBuilder();
         if (!CollectionUtils.isEmpty(atUsers)) {
@@ -440,30 +457,6 @@ public class WeChatDllServiceImpl implements WeChatDllService {
             }
         }
         return atUserStr.toString();
-    }
-
-    /**
-     * 根据微信号查找对应的NickName
-     *
-     * @param userName 用户名（微信号）
-     * @return 对应的NickName
-     */
-    private String queryNickNameByUserName(String userName) {
-        List<Wcf.DbRow> dbList = wechatSocketClient.querySql(
-                "MicroMsg.db",
-                "SELECT NickName FROM Contact WHERE UserName = '" + userName + "';"
-        );
-
-        if (!CollectionUtils.isEmpty(dbList)) {
-            for (Wcf.DbRow dbRow : dbList) {
-                for (Wcf.DbField dbField : dbRow.getFieldsList()) {
-                    if ("NickName".equals(dbField.getColumn())) {
-                        return (String) converterSqlVal(dbField.getType(), dbField.getContent());
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     private void sendMsgForward(String jsonString) {
