@@ -1,10 +1,12 @@
 package com.wechat.ferry.plugin;
 
+import com.wechat.ferry.swing.SettingsWindow;
 import org.springframework.stereotype.Service;
 import top.ruojy.wxbot.ChatBotPlugin;
 import top.ruojy.wxbot.entity.MessageRequest;
 import top.ruojy.wxbot.entity.dto.WxPpMsgDTO;
 import top.ruojy.wxbot.entity.vo.request.*;
+import top.ruojy.wxbot.enums.MessageTypeEnum;
 import top.ruojy.wxbot.service.WeChatDllService;
 
 import javax.annotation.Resource;
@@ -118,6 +120,33 @@ public class PluginManager {
 //            }
 //        }
 //    }
+
+    /**
+     * 框架内置功能
+     * 菜单
+     */
+    public void frameWorkFunction(WxPpMsgDTO dto){
+        MessageRequest messageRequest;
+        switch (dto.getContent()){
+            case "菜单":
+                String menuContent = SettingsWindow.getMenuContent();
+                WxPpWcfSendTextMsgReq textMsgReq = new WxPpWcfSendTextMsgReq();
+                textMsgReq.setMsgText("@"+dto.getSender()+menuContent);
+                textMsgReq.setRecipient(dto.getRoomId());
+                List<String> user = new ArrayList<>();
+                user.add(dto.getSender());
+                textMsgReq.setAtUsers(user);
+
+                messageRequest = MessageRequest.create(MessageTypeEnum.TEXT, textMsgReq);
+                // 将消息请求添加到队列
+                messageQueue.add(messageRequest);
+                startQueueProcessing(30);
+                break;
+            default:
+                break;
+        }
+    }
+
 
     // 消息队列处理器（如果有异步处理需求）
     public void processQueue() {

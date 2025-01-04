@@ -65,8 +65,11 @@ public class SidePanel {
         settingsLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // 在此添加点击设置按钮后的操作
-                log.info("点击了设置按钮");
+            // 在此添加点击设置按钮后的操作
+            SwingUtilities.invokeLater(() -> {
+                SettingsWindow settingsWindow = new SettingsWindow();
+                settingsWindow.setVisible(true);
+            });
             }
         });
 
