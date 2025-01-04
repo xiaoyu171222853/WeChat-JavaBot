@@ -2,13 +2,13 @@ package com.wechat.ferry.swing;
 
 import com.wechat.ferry.entity.PluginClass;
 import com.wechat.ferry.entity.PluginPackage;
-import com.wechat.ferry.plugin.PluginLoader;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PluginPanel {
@@ -22,12 +22,12 @@ public class PluginPanel {
         // 设置标题
         JLabel titleLabel = new JLabel("插件列表", JLabel.CENTER);
         titleLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 24));  // 加大字体
-
+        titleLabel.setForeground(new Color(70, 130, 180));  // Title color
         // 将标题添加到顶部
         pluginPanel.add(titleLabel, BorderLayout.NORTH);
 
         // 获取插件数据
-        List<PluginPackage> pluginPackages = PluginLoader.pluginPackages;
+        List<PluginPackage> pluginPackages = new LinkedList<>();
 
         // 计算所有插件包中的类总数
         int rowCount = 0;

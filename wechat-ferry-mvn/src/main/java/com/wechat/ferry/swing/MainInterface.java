@@ -9,7 +9,7 @@ public class MainInterface {
 
     public void showMainInterface() throws UnsupportedEncodingException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException {
         // 主框架
-        JFrame mainFrame = new JFrame("主界面");
+        JFrame mainFrame = new JFrame("若小智");
         mainFrame.setSize(900, 600);
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -21,7 +21,7 @@ public class LogPanel {
 
         JLabel titleLabel = new JLabel("日志输出", JLabel.CENTER);
         titleLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 24));
-
+        titleLabel.setForeground(new Color(70, 130, 180));  // Title color
         // Create JTextArea for displaying logs
         logText = new JTextArea();
         logText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 16));

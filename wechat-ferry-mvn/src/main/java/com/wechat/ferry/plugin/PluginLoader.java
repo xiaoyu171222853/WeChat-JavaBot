@@ -32,7 +32,7 @@ public class PluginLoader {
     public PluginLoader(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
-
+    // 加载的插件列表，在swing——PluginPanel中显示
     public static final List<PluginPackage> pluginPackages = new ArrayList<>();
 
     // 插件加载方法
@@ -45,57 +45,61 @@ public class PluginLoader {
         }
         // 获取插件文件夹中的所有 JAR 文件
         File[] pluginFiles = pluginDirectory.listFiles((dir, name) -> name.endsWith(".jar"));
-
-        if (pluginFiles != null) {
-            for (File pluginFile : pluginFiles) {
-                try {
-                    // 动态加载插件 JAR 文件
-                    URL[] urls = {pluginFile.toURI().toURL()};
-
-                    // 使用 AnnotationConfigApplicationContext 注册插件中的 Bean
-                    AnnotationConfigApplicationContext pluginContext = new AnnotationConfigApplicationContext();
-
-                    URLClassLoader classLoader = new URLClassLoader(urls, applicationContext.getClassLoader());
-                    pluginContext.setClassLoader(classLoader);
-                    pluginContext.setParent(applicationContext);  // 使插件上下文成为主上下文的子上下文
-                    List<String> remotePluginGroupIds = getRemotePluginGroupIdS();
-                    // 转为String[]
-                    String[] scanPackages = remotePluginGroupIds.toArray(new String[0]);
-                    pluginContext.scan(scanPackages);
-
-                    pluginContext.refresh();
-
-                    // 将插件的 Bean 注册到主容器中
-                    registerPluginBeans(pluginContext);
-
-                    // 创建插件主类实例
-                    Stream<ChatBotPlugin> chatBotPluginStream = pluginContext.getBeansOfType(ChatBotPlugin.class)
-                            .values()
-                            .stream();
-                    chatBotPluginStream.forEach(plugin -> {
-
-                        pluginManager.initializePlugins(Collections.singletonList(plugin));
-
-                        // 获取插件的描述、版本、作者
-                        String pluginName = plugin.getClass().getSimpleName();
-                        String pluginDescription = plugin.getPluginDescription();
-                        String pluginVersion = plugin.getPluginVersion();
-                        String pluginAuthor = plugin.getDeveloperName();
-
-                        // 构建 PluginClass 对象
-                        PluginClass pluginClassObj = new PluginClass(pluginName, pluginDescription, pluginVersion, pluginAuthor);
-
-                        // 构建 PluginPackage 对象
-                        PluginPackage pluginPackage = new PluginPackage(pluginFile.getName(), Arrays.asList(pluginClassObj));
-                        pluginPackages.add(pluginPackage);
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            log.info("插件加载完成！");
-        }else {
+        // 判断是否有jar包
+        if (pluginFiles == null) {
             log.info("未找到插件");
+            return;
+        }
+        // 循环jar包加载插件
+        for (File pluginFile : pluginFiles) {
+            try {
+                // 动态加载插件 JAR 文件
+                URL[] urls = {pluginFile.toURI().toURL()};
+
+                // 使用 AnnotationConfigApplicationContext 注册插件中的 Bean
+                AnnotationConfigApplicationContext pluginContext = new AnnotationConfigApplicationContext();
+
+                URLClassLoader classLoader = new URLClassLoader(urls, applicationContext.getClassLoader());
+                pluginContext.setClassLoader(classLoader);
+                pluginContext.setParent(applicationContext);  // 使插件上下文成为主上下文的子上下文
+
+                // 获取插件扫描路径 groupId package
+                List<String> remotePluginGroupIds = getRemotePluginGroupIdS();
+                // 转为String[]
+                String[] scanPackages = remotePluginGroupIds.toArray(new String[0]);
+                // 设置扫描包
+                pluginContext.scan(scanPackages);
+
+                pluginContext.refresh();
+
+                // 将插件的 Bean 注册到主容器中
+                registerPluginBeans(pluginContext);
+
+                // 创建插件主类实例
+                Stream<ChatBotPlugin> chatBotPluginStream = pluginContext.getBeansOfType(ChatBotPlugin.class)
+                        .values()
+                        .stream();
+                chatBotPluginStream.forEach(plugin -> {
+                    // 初始化插件
+                    pluginManager.initializePlugins(Collections.singletonList(plugin));
+
+                    // 获取插件的名称、描述、版本、作者
+                    String pluginName = plugin.getClass().getSimpleName();
+                    String pluginDescription = plugin.getPluginDescription();
+                    String pluginVersion = plugin.getPluginVersion();
+                    String pluginAuthor = plugin.getDeveloperName();
+
+                    // 构建 PluginClass 对象
+                    PluginClass pluginClassObj = new PluginClass(pluginName, pluginDescription, pluginVersion, pluginAuthor);
+
+                    // 构建 PluginPackage 对象
+                    PluginPackage pluginPackage = new PluginPackage(pluginFile.getName(), Arrays.asList(pluginClassObj));
+                    pluginPackages.add(pluginPackage);
+                });
+                log.info(pluginFile.getName()+"加载完成！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

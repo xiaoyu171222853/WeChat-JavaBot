@@ -1,4 +1,4 @@
-# WeChatFerry Java 客户端 maven - plugin版
+# WeChatFerry Java 客户端 maven - plugin版——若小智
 
 本项目基于 [WeChatFerry](https://github.com/lich0821/WeChatFerry) 项目，感谢原作者及所有贡献者。
 <details><summary><font color="red" size="12">免责声明【必读】</font></summary>
@@ -29,17 +29,17 @@
 ### 版本命名规则
 ```xml
     <artifactId>ChatFerry-Java-Bot</artifactId>
-    <packaging>jar</packaging>
-    <name>wxbot-plugin</name>
-    <version>0.3.0_39.3.3</version>
-    <description>WeChatFerry客户端Java-Maven-plugin版</description>
+<packaging>jar</packaging>
+<name>wxbot-plugin</name>
+<version>0.3.0_39.3.3</version>
+<description>WeChatFerry客户端Java-Maven-plugin版</description>
 ```
 版本命名规则：`该客户端版本_WeChatFerry版本`
 ### 对应微信版本一览
 
-| 客户端版本         | 微信版本  |
-|---------------|-------|
-| 0.3.0_39.3.3  | [3.9.11.25](https://www.123865.com/s/QqyDVv-9XV0h) |
+| 客户端版本 | 微信版本  |
+|-------|-------|
+| 0.3.x | [3.9.11.25](https://www.123865.com/s/QqyDVv-9XV0h) |
 
 gui界面也设置对应微信版本下载链接
 
@@ -54,24 +54,40 @@ gui界面也设置对应微信版本下载链接
 
 点击“继续” 即可启动
 
-### 寻找插件
+### 配置
+在框架运行的情况下，访问 http://localhost:9201/swagger-ui/index.html
+
+进入swagger，微信消息处理-接口->找到并点击获取联系人
+
+依次点击：
+try it out ——> Execute
+
+在返回结果中找到你要开启的微信组群的roomId复制
+
+打开框架config/application.yaml文件
+
+将如下所示 open-msg-groups 更换为你要开启的群聊
+```yaml
+# 本服务参数
+wechat:
+  ferry:
+    # DLL文件位置
+    dll-path: xxxx\sdk.dll
+    # socket端口
+    socket-port: 10086
+    # 需要开启消息处理的群
+    open-msg-groups:
+      - 52155225442@chatroom
+      - 45411596543@chatroom
+```
+
+
+## 插件
 所有的插件我将会放在 插件中心[暂无地址](#)，大家需自行下载，后续将引入插件中心，允许开发者自行上传
 
 没有插件也可以直接启动，就是没功能罢了
-#### 写给插件开发者
+### 写给插件开发者
 插件开发文档请见：[插件开发接口工具包](https://gitee.com/xiaoyudi_xyz/wx-bot-dev-plugin)
-
-### 编译运行
-
-找到 src/main/java/com/wechat/ferry/WeChatFerryApplication.java 类
-
-直接启动即可
-
-### 访问
-
-启动后springboot自身的端口为 9201 微信socket的端口为 10086
-
-swagger地址：http://localhost:9201/swagger-ui/index.html
 
 ## 参与开发
 🚫 非开发用户不需要往下看。
@@ -88,6 +104,11 @@ swagger地址：http://localhost:9201/swagger-ui/index.html
 | fastjson2     | 2.0.52 | 序列化      |
 | dom4j         | 2.1.3  | XML解析包   |
 | httpclient    | 4.5.13 | 客户端请求    |
+
+### clone本仓库
+git clone https://gitee.com/xiaoyudi_xyz/WeChatFerry-JavaBot.git
+
+以wechat-ferry-mvn为根目录打开
 
 ### 模块结构
 

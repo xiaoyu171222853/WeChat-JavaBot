@@ -1,5 +1,7 @@
 package com.wechat.ferry.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -37,6 +39,8 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
     @Resource
     private PluginManager pluginManager;
 
+    private static final List<String> functions = new ArrayList<>(List.of(new String[]{"菜单"}));
+
     @Override
     public void receiveMsg(String jsonString) {
         // 转发接口处理
@@ -44,7 +48,7 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
         // 转为JSON对象
         WxPpMsgDTO dto = JSON.parseObject(jsonString, WxPpMsgDTO.class);
         log.info(dto.toString());
-        // 已开启群聊消息处理
+        // 群聊消息处理
         if (dto.getIsGroup()) {
             // 判断是否有开启的群聊配置
             if (!CollectionUtils.isEmpty(weChatFerryProperties.getOpenMsgGroups())) {
@@ -57,7 +61,15 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                         pluginManager.handleGroupAtMeMessage(dto);
                     }else {
                         log.debug("[收到消息]-[开启群聊]-打印：{}", dto);
-                        pluginManager.handleGroupMessage(dto);
+                        // 处理框架内置功能（菜单）
+                        if (functions.contains(dto.getContent())){
+                            pluginManager.frameWorkFunction(dto);
+                            return;
+                        }
+                        // 非本人发送的消息才进行处理
+                        if (!dto.getIsSelf()){
+                            pluginManager.handleGroupMessage(dto);
+                        }
                     }
                 }else {
                     // [收到消息]-[未开启群聊]
@@ -67,10 +79,17 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                 return;
             }
         }
-        // 判断是否为个人号
+        // 判断是否为个人号 私聊消息处理
         if (dto.getRoomId().startsWith("wxid_")) {
-            // 私聊
-            pluginManager.handlePersonalMessage(dto);
+            // 处理框架内置功能（菜单）
+            if (functions.contains(dto.getContent())){
+                pluginManager.frameWorkFunction(dto);
+                return;
+            }
+            // 非本人发送的消息才进行处理
+            if (!dto.getIsSelf()) {
+                pluginManager.handlePersonalMessage(dto);
+            }
         }
     }
 
