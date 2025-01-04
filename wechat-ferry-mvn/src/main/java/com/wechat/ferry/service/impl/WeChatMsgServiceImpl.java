@@ -57,7 +57,10 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                         pluginManager.handleGroupAtMeMessage(dto);
                     }else {
                         log.debug("[收到消息]-[开启群聊]-打印：{}", dto);
-                        pluginManager.handleGroupMessage(dto);
+                        // 非本人发送的消息才进行处理
+                        if (!dto.getIsSelf()){
+                            pluginManager.handleGroupMessage(dto);
+                        }
                     }
                 }else {
                     // [收到消息]-[未开启群聊]
@@ -67,10 +70,12 @@ public class WeChatMsgServiceImpl implements WeChatMsgService {
                 return;
             }
         }
-        // 判断是否为个人号
+        // 判断是否为个人号 私聊
         if (dto.getRoomId().startsWith("wxid_")) {
-            // 私聊
-            pluginManager.handlePersonalMessage(dto);
+            // 非本人发送的消息才进行处理
+            if (!dto.getIsSelf()) {
+                pluginManager.handlePersonalMessage(dto);
+            }
         }
     }
 
