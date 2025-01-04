@@ -37,8 +37,8 @@ public class ConfigWindow {
     private void initialize() {
         // 初始化框架
         frame = new JFrame("配置窗口");
-        frame.setSize(600, 500);
-        frame.setMinimumSize(new Dimension(600, 500));
+        frame.setSize(600, 400);
+        frame.setMinimumSize(new Dimension(600, 400));
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  // 禁用默认关闭操作
         frame.setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);  // 窗口居中显示
@@ -47,11 +47,11 @@ public class ConfigWindow {
         gbc.insets = new Insets(10, 10, 10, 10);  // 增加内边距，使界面更舒适
 
         // 标签和字段
-        JLabel hostLabel = new JLabel("dll路径:");
+        JLabel dllLabel = new JLabel("dll路径:");
         dllField = new JTextField();
-        JLabel portLabel = new JLabel("若智云密钥：");
+        JLabel tokenLabel = new JLabel("若智云密钥：");
         ruojyTokenField = new JTextField();
-        JLabel pluginLabel = new JLabel("插件路径：");
+
         pluginField = new JTextField();
         continueButton = new JButton("继续");
         explainLabel = new JLabel("微信版本要求：3.9.11.25");
@@ -68,8 +68,6 @@ public class ConfigWindow {
         dllField.setPreferredSize(new Dimension(400, 40));
         ruojyTokenField.setMinimumSize(new Dimension(250, 40));
         ruojyTokenField.setPreferredSize(new Dimension(400, 40));
-        pluginField.setMinimumSize(new Dimension(250, 40));
-        pluginField.setPreferredSize(new Dimension(400, 40));
 
         // 创建按钮面板，按钮居中
         JPanel buttonPanel = new JPanel();
@@ -80,24 +78,17 @@ public class ConfigWindow {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        frame.add(hostLabel, gbc);
+        frame.add(dllLabel, gbc);
 
         gbc.gridx = 1;
         frame.add(dllField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        frame.add(portLabel, gbc);
+        frame.add(tokenLabel, gbc);
 
         gbc.gridx = 1;
         frame.add(ruojyTokenField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        frame.add(pluginLabel, gbc);
-
-        gbc.gridx = 1;
-        frame.add(pluginField, gbc);
 
         // 按钮居中，位于第3行（与其他输入框分开）
         gbc.gridx = 0;

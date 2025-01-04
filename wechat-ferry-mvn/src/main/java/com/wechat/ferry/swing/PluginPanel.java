@@ -2,6 +2,7 @@ package com.wechat.ferry.swing;
 
 import com.wechat.ferry.entity.PluginClass;
 import com.wechat.ferry.entity.PluginPackage;
+import com.wechat.ferry.plugin.PluginLoader;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,7 +28,7 @@ public class PluginPanel {
         pluginPanel.add(titleLabel, BorderLayout.NORTH);
 
         // 获取插件数据
-        List<PluginPackage> pluginPackages = new LinkedList<>();
+        List<PluginPackage> pluginPackages = PluginLoader.pluginPackages;
 
         // 计算所有插件包中的类总数
         int rowCount = 0;
