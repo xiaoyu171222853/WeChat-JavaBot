@@ -140,11 +140,11 @@
         <dependency>
             <groupId>top.ruojy.wxbot</groupId>
             <artifactId>wx-bot-dev-plugin</artifactId>
-            <version>0.3.0</version>
+            <version>0.3.2</version>
             <!-- system表示依赖不是由maven仓库，而是本地的jar包 -->
             <scope>system</scope>
             <!-- jar包位置 -->
-            <systemPath>${project.basedir}/src/main/resources/libs/wx-bot-dev-plugin-0.3.0.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/libs/wx-bot-dev-plugin-0.3.2.jar</systemPath>
         </dependency>
         <!-- 引入本地lib -->
         <dependency>
