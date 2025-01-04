@@ -2,8 +2,6 @@
 !.gitignore
 !.editorconfig
 !.github/
-!.readthedocs.yml
-!.gitattributes
 
 # VS2019 build files
 Debug/
