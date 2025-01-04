@@ -47,7 +47,7 @@ public class SettingsWindow extends JFrame {
         """;
 
     @Value("${ruojy.file-path}")
-    private static String MENU_FILE = "/Users/xiaoyu/Documents/project/xiaoyu/WeChatFerry-JavaBot/wechat-ferry-mvn/config/menu";
+    private static String MENU_FILE;
 
     public SettingsWindow() {
         setTitle("设置");

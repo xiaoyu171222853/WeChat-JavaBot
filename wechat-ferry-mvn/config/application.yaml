@@ -62,7 +62,7 @@ wechat:
       code: '200'
 ruojy:
   # 机器人菜单
-  file-path: /Users/xiaoyu/Documents/project/xiaoyu/WeChatFerry-JavaBot/wechat-ferry-mvn/config/menu
+  file-path: config/menu.txt
   # 若智云Token
   token: MyToken # https://www.ruojy.top
   # 插件目录
